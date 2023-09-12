@@ -10,7 +10,7 @@ def get_clients(give_df=False):
     else:
         return df, df.client_id.unique()
 
-def create_clients_tables(delete_previous_files=False):
+def create_clients_dfs(delete_previous_files=False):
     df, clients = get_clients(give_df=True)
     if delete_previous_files:
         # Delete all client directories and files if delete_previous_files is True
@@ -36,4 +36,58 @@ def create_clients_tables(delete_previous_files=False):
         #Save the client df to a separate csv file
         filepath=path.CLIENTS+str(client)
         os.mkdir(filepath)
-        client_specific_df.to_csv(filepath+"/"+"client_data.csv", index= False)        
+        client_specific_df.to_csv(filepath+"/"+"client_data.csv", index= False)    
+        
+def create_client_stats():
+    clients = get_clients()
+    
+    for client in clients:
+        filepath = os.path.join(path.CLIENTS, str(client), "client_data.csv")
+        clientdf = pd.read_csv(filepath)
+        
+        # Initialize dictionaries to store attributed and unattributed customer counts per period
+        attributed_counts = {}
+        unattributed_counts = {}
+        
+        periods = clientdf['period_end'].unique()
+        
+        for period in periods:
+            # Filter the DataFrame for the current period and client
+            period_df = clientdf[(clientdf['period_end'] == period)]
+            
+            # Count attributed and unattributed customers for the current period
+            attributed_customers = period_df[period_df['attribution'] == 'ATTRIBUTED']['customers'].sum()
+            unattributed_customers = period_df[period_df['attribution'] != 'ATTRIBUTED']['customers'].sum()
+            
+            # Store the counts in dictionaries with the period as the key
+            attributed_counts[period] = attributed_customers
+            unattributed_counts[period] = unattributed_customers
+        
+        # Create a DataFrame to store the client statistics
+        stats_df = pd.DataFrame({
+            'period_end': periods,
+            'attributed_customers': [attributed_counts.get(period, 0) for period in periods],
+            'unattributed_customers': [unattributed_counts.get(period, 0) for period in periods]
+        })
+        
+        # Define the output directory for client statistics
+        stats_output_directory = os.path.join(path.CLIENTS, str(client))
+        os.makedirs(stats_output_directory, exist_ok=True)
+        
+        # Define the filename for the client statistics CSV file
+        stats_filename = os.path.join(stats_output_directory, "client_attributions.csv")
+        
+        # Save the client statistics DataFrame to a CSV file
+        stats_df.to_csv(stats_filename, index=False)
+
+
+# def delete_client_stats_files():
+#     clients = get_clients()
+    
+#     for client in clients:
+#         stats_filepath = os.path.join(path.CLIENTS, str(client), "client_stats.csv")
+        
+#         # Check if the client_stats.csv file exists and delete it
+#         if os.path.exists(stats_filepath):
+#             os.remove(stats_filepath)
+#             print(f"Deleted client_stats.csv for Client {client}")

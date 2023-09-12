@@ -1,4 +1,5 @@
 import pandas as pd
-from clientprocessing import create_clients_tables
+import clientprocessing
 
-create_clients_tables(delete_previous_files=True)
+clientprocessing.create_client_stats()
+clientprocessing.delete_client_stats_files()
