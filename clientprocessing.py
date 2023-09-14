@@ -126,3 +126,24 @@ def choose_suitable_clients(treshold=50):
                 suitable_clients.append(str(client_folder))
                 # print(f"Found suitable client '{str(client_folder)}'")
     return suitable_clients
+
+
+def client_attribution_by_period():
+    if os.path.exists(path.CLIENTS):
+        client_folders = [folder for folder in os.listdir(
+            path.CLIENTS) if os.path.isdir(os.path.join(path.CLIENTS, folder))]
+        for client_folder in client_folders:
+            # print(f"Client {client_folder}:")          
+            client_folder_path = os.path.join(path.CLIENTS, client_folder)
+            df=pd.read_csv(client_folder_path+'/'+"client_data.csv")
+            # Group the DataFrame by 'period_end' and 'attribution' and sum the 'customers' column
+            period_stats = df.groupby(['period_end', 'attribution'])['customers'].sum().reset_index()
+            period_stats.to_csv(client_folder_path+'/'+'attributions_by_period.csv', index=False)
+
+
+def client_attribution_by_source():
+    clients=get_clients()
+    for client in clients:
+        client_path=path.CLIENTS+str(client)+'/client_attributions.csv'
+        df=pd.read_csv(client_path)
+        print(df)
