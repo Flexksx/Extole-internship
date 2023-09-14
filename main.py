@@ -1,5 +1,7 @@
 import pandas as pd
 import clientprocessing
 
-clientprocessing.create_client_stats()
-clientprocessing.delete_client_stats_files()
+
+
+suitable_clients=clientprocessing.choose_suitable_clients(treshold=100)
+print(len(suitable_clients))
