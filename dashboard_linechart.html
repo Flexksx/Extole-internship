@@ -168,8 +168,17 @@
             title: {
                 text: 'Line Chart'
             },
+              xAxis: {
+                categories: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8', 'Week 9', 'Week 10', 'Week 11', 'Week 12', 'Week 13', 'Week 14', 'Week 15']
+            },
+            yAxis: {
+                title: {
+                    text: 'Contribution Rate'
+                }
+            },
             series: [{
-                data: [171, 98, 15, 94, 118, 42, 27, 160, 131, 95, 107, 23, 42, 61, 128, 55, 38, 61, 64, 184]
+                name: "CR, %",
+                data: [76, 48, 92, 15, 87, 63, 32, 19, 54, 41, 70, 88]
             }]
         });
     </script>
