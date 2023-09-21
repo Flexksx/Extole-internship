@@ -50,8 +50,8 @@
 
         #chart-container {
             flex: 1;
-            width: 100%; 
-            margin: 20px;
+            width: 100%;
+            margin: 59px;
         }
 
         .select-container {
@@ -140,7 +140,7 @@
 
     <div class="select-container">
         <label for="period-select">Select Quarter:</label>
-        <select id="period-select">
+        <select id="period-select" onchange="updateBarChart(this.value)">
             <option value="Q1">Jan-Mar (Q1)</option>
             <option value="Q2">Apr-Jun (Q2)</option>
             <option value="Q3">Jul-Sep (Q3)</option>
@@ -168,26 +168,37 @@
             }
         }
 
-        Highcharts.chart('bar-chart-container', {
-            chart: {
-                type: 'bar'
-            },
-            title: {
-                text: 'Bar Chart'
-            },
-            xAxis: {
-                categories: ['Category 1', 'Category 2', 'Category 3', 'Category 4', 'Category 5']
-            },
-            yAxis: {
+        const quartersData = {
+            Q1: Array.from({ length: 12 }, () => Math.floor(Math.random() * 101)),
+            Q2: Array.from({ length: 12 }, () => Math.floor(Math.random() * 101)),
+            Q3: Array.from({ length: 12 }, () => Math.floor(Math.random() * 101)),
+            Q4: Array.from({ length: 12 }, () => Math.floor(Math.random() * 101)),
+        };
+
+        function updateBarChart(selectedQuarter) {
+            const chart = Highcharts.chart('bar-chart-container', {
+                chart: {
+                    type: 'bar'
+                },
                 title: {
-                    text: 'Values'
-                }
-            },
-            series: [{
-                name: 'Series 1',
-                data: [30, 45, 60, 25, 50]
-            }]
-        });
+                    text: 'Bar Chart'
+                },
+                xAxis: {
+                    categories: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8', 'Week 9', 'Week 10', 'Week 11', 'Week 12']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Contribution Rate'
+                    }
+                },
+                series: [{
+                    name: "CR, %",
+                    data: quartersData[selectedQuarter]
+                }]
+            });
+        }
+
+        updateBarChart('Q1');
 
     </script>
 </body>
