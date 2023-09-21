@@ -135,13 +135,14 @@
 
     <div class="select-container">
         <label for="period-select">Select Quarter:</label>
-        <select id="period-select">
+        <select id="period-select" onchange="updateChart(this.value)">
             <option value="Q1">Jan-Mar (Q1)</option>
             <option value="Q2">Apr-Jun (Q2)</option>
             <option value="Q3">Jul-Sep (Q3)</option>
             <option value="Q4">Oct-Dec (Q4)</option>
         </select>
     </div>
+    
 
     <div class="menu" id="menu">
         <button class="back-button" onclick="toggleMenu()">Back</button>
@@ -181,6 +182,31 @@
                 data: [76, 48, 92, 15, 87, 63, 32, 19, 54, 41, 70, 88]
             }]
         });
+        const quartersData = {
+            Q1: Array.from({ length: 12 }, () => Math.floor(Math.random() * 101)),
+            Q2: Array.from({ length: 12 }, () => Math.floor(Math.random() * 101)),
+            Q3: Array.from({ length: 12 }, () => Math.floor(Math.random() * 101)),
+            Q4: Array.from({ length: 12 }, () => Math.floor(Math.random() * 101)),
+        };
+        function updateChart(selectedQuarter) {
+            const chart = Highcharts.chart('chart-container', {
+                title: {
+                    text: 'Line Chart'
+                },
+                xAxis: {
+                    categories: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8', 'Week 9', 'Week 10', 'Week 11', 'Week 12']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Contribution Rate'
+                    }
+                },
+                series: [{
+                    name: "CR, %",
+                    data: quartersData[selectedQuarter] 
+                }]
+            });
+        }
     </script>
 </body>
 </html>
