@@ -4,122 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-          text-align: center;
-           margin: 20px auto; 
-        }
-
-        .logo img {
-            width: 100px;
-            height: auto; 
-        }
-
-
-        .rectangle {
-            flex: 1;
-            width: calc(33.33% - 20px); 
-            background-color: #e11c4c; 
-            padding: 20px;
-            margin: 10px;
-            border-radius: 15px; 
-            text-align: center;
-        }
-
-        .rectangle h2 {
-            font-size: 24px;
-            font-weight: bold;
-            color: white; 
-        }
-
-        .rectangle p {
-            font-size: 18px;
-            color: white; 
-        }
-
-        #chart-container {
-            flex: 1;
-            width: 100%; 
-            margin: 20px;
-        }
-
-        .select-container {
-            text-align: center;
-        }
-
-        .menu-button {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background-color: #000;
-        color: white;
-        border: none;
-        border-radius: 20%;
-        padding: 10px;
-        cursor: pointer;
-        z-index: 1;
-    }
-
-        .menu {
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 200px;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: none;
-            z-index: 2; 
-        }
-
-        .menu ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .menu li {
-            padding: 10px 0;
-        }
-
-        .menu a {
-            color: white;
-            font-size: 20px;
-            text-decoration: none;
-            display: block;
-            text-align: center;
-        }
-        .back-button {
-            background-color: #000;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-        .chart-container {
-            flex: 1;
-            width: 100%;
-            margin: 20px;
-            height: 300px; /* Adjust the height as needed */
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="dashboard.css">
 </head>
 <body>
     <div class="logo">
         <img src="https://security.extole.com/api/share/d646d684-37b8-471e-a9ba-9c3f0f0cb516/logo.png" alt="Logo">
     </div>
 
-    <button class="menu-button" onclick="toggleMenu()">Menu</button>
+    <button class="menu-button" id="menu-button">Menu</button>
 
     <div class="container">
         <div class="rectangle">
@@ -149,52 +41,15 @@
     </div>
 
     <div class="menu" id="menu">
-        <button class="back-button" onclick="toggleMenu()">Back</button>
+        <button class="back-button" id="back-button">Back</button>
         <ul>
             <li><a href="dashboard_linechart.html">Line Chart</a></li>
             <li><a href="dashboard_barchart.html">Bar Chart</a></li>
-            <li><a href="dashboard_piechart.html">Pie CHart</a></li>
+            <li><a href="dashboard_piechart.html">Pie Chart</a></li>
         </ul>
     </div>
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script>
-        function toggleMenu() {
-            var menu = document.getElementById("menu");
-            if (menu.style.display === "block") {
-                menu.style.display = "none";
-            } else {
-                menu.style.display = "block";
-            }
-        }
-
-        Highcharts.chart('pie-chart-container', {
-            chart: {
-                type: 'pie'
-            },
-            title: {
-                text: 'Pie Chart'
-            },
-            series: [{
-                name: 'Categories',
-                data: [{
-                    name: 'Category A',
-                    y: 35
-                }, {
-                    name: 'Category B',
-                    y: 25
-                }, {
-                    name: 'Category C',
-                    y: 20
-                }, {
-                    name: 'Category D',
-                    y: 10
-                }, {
-                    name: 'Category E',
-                    y: 10
-                }]
-            }]
-        });
-    </script>
+    <script src="dashboard_piechart.js"></script>
 </body>
 </html>
