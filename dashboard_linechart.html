@@ -33,15 +33,9 @@
 
     <div class="select-container">
         <label for="period-select">Select Quarter:</label>
-        <select id="period-select" onchange="updateChart(this.value)">
-            <option value="Q1">Jan-Mar (Q1)</option>
-            <option value="Q2">Apr-Jun (Q2)</option>
-            <option value="Q3">Jul-Sep (Q3)</option>
-            <option value="Q4">Oct-Dec (Q4)</option>
-        </select>
+        <select id="period-select"></select>
     </div>
     
-
     <div class="menu" id="menu">
         <button class="back-button" onclick="toggleMenu()">Back</button>
         <ul>
@@ -51,44 +45,7 @@
         </ul>
     </div>
 
-
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script>
-        function toggleMenu() {
-            var menu = document.getElementById("menu");
-            if (menu.style.display === "block") {
-                menu.style.display = "none";
-            } else {
-                menu.style.display = "block";
-            }
-        }
-
-        const quartersData = {
-            Q1: Array.from({ length: 12 }, () => Math.floor(Math.random() * 100)),
-            Q2: Array.from({ length: 12 }, () => Math.floor(Math.random() * 100)),
-            Q3: Array.from({ length: 12 }, () => Math.floor(Math.random() * 100)),
-            Q4: Array.from({ length: 12 }, () => Math.floor(Math.random() * 100)),
-        };
-        function updateChart(selectedQuarter) {
-            const chart = Highcharts.chart('chart-container', {
-                title: {
-                    text: 'Line Chart'
-                },
-                xAxis: {
-                    categories: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8', 'Week 9', 'Week 10', 'Week 11', 'Week 12']
-                },
-                yAxis: {
-                    title: {
-                        text: 'Contribution Rate'
-                    }
-                },
-                series: [{
-                    name: "CR, %",
-                    data: quartersData[selectedQuarter] 
-                }]
-            });
-        }
-        updateChart('Q1');
-    </script>
+    <script src="dashboard.js"></script>
 </body>
 </html>
