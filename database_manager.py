@@ -1,5 +1,6 @@
 import sqlite3
 from sqlite3 import Error
+import paths as p
 
 def create_connection(db_file):
     """ create a database connection to the SQLite database
@@ -50,6 +51,6 @@ def create_records_table(conn):
         print(e)
 
 
-conn = create_connection("ClientDB/Clients.db")
+conn = create_connection(p.DB)
 create_client_periods_table(conn)
 create_records_table(conn)
