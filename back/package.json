@@ -1,0 +1,22 @@
+{
+  "name": "back",
+  "version": "1.0.0",
+  "description": "Back-end part for the project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Flexksx/practica.git"
+  },
+  "author": "Cretu Cristian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Flexksx/practica/issues"
+  },
+  "homepage": "https://github.com/Flexksx/practica#readme",
+  "dependencies": {
+    "sqlite3": "^5.1.6"
+  }
+}
