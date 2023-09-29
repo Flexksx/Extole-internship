@@ -1,19 +1,12 @@
 const express = require("express");
 const app = express();
-const sqlite3 = require('sqlite3').verbose();
-const IP_ADDRESS = '192.168.20.13'; // Replace with your local IP address
+const IP_ADDRESS = '192.168.1.10'; // Replace with your local IP address
 const cors = require("cors"); // Import the cors package
 const {getClientDataQ1, getClientData, getClientDataQ2,getClientDataQ3,getClientDataQ4} = require("./database")
 
 
 // Create a new SQLite database or open an existing one
-const db = new sqlite3.Database('/home/cristi/Documents/practica/database/ClientDB/Clients.db', (err) => {
-    if (err) {
-        console.error('Error opening database:', err.message);
-    } else {
-        console.log('Connected to the database.');
-    }
-});
+
 
 
 

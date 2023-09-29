@@ -1,3 +1,13 @@
+const sqlite3 = require('sqlite3').verbose();
+
+const db = new sqlite3.Database('/home/cristi/Documents/practica/database/ClientDB/Clients.db', (err) => {
+    if (err) {
+        console.error('Error opening database:', err.message);
+    } else {
+        console.log('Connected to the database.');
+    }
+});
+
 function getClientDataQ1(clientID, callback) {
     const query = `SELECT
     *
