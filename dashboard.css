@@ -24,11 +24,12 @@ body {
 .rectangle {
     flex: 1;
     width: calc(33.33% - 20px); 
-    background-color: #e11c4c; 
+    background: linear-gradient(to bottom, #e11c4c, #dc1b1b5e); 
     padding: 20px;
     margin: 10px;
     border-radius: 15px; 
     text-align: center;
+    color: #fff;
 }
 
 .rectangle h2 {

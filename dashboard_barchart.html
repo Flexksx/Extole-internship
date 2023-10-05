@@ -48,6 +48,24 @@
             <li><a href="dashboard_piechart.html">Pie Chart</a></li>
         </ul>
     </div>
+    <script>
+        // Replace 'your_api_url' with the actual URL of your API
+        const apiUrl = 'http://192.168.20.13:3000/client-data/1007705046';
+
+        // Fetch data from the API
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                // Handle the fetched data here
+                const dataContainer = document.getElementById('data-container');
+                dataContainer.innerHTML = JSON.stringify(data, null, 2);
+                console.log()
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error('Error:', error);
+            });
+    </script>
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="dashboard_barchart.js"></script>
