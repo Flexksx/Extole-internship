@@ -20,4 +20,9 @@ Some guy whose name I forgot sorry
 8. You can look in the "back" directory, where is the app.js file and you'll get how to work with the current state of the API
 
 ## How to use the API
-localhost:3000/client-data/<your client id>/quarter/<Q1,Q2,Q3,Q4>
+localhost:PORT/get-all-clients - gives all client ids.
+localhost:PORT/client-data/<client-id> - gives all-time info about a client.
++ /sources - gives all time info about a client's sources.
++ /quarter/<Q1,Q2,Q3,Q4> - gives info about a client by quarter.
++ + /sources - gives info about a client's sources by quarter.
+
