@@ -5,7 +5,7 @@ from db_json_loader import *
 
 
 
-conn = create_connection("/home/cristi/Documents/practica/database/ClientDB/Clients.db")
+conn = create_connection("C:\Users\liviu\Desktop\extole\practica\database\ClientDB\Clients.db")
 create_client_periods_table(conn)
 create_records_table(conn)
 tables = list_tables(conn)
