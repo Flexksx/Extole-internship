@@ -35,7 +35,8 @@ function getClientDataByQuarter(clientID, quarter, callback) {
     const query = `SELECT
         period_end, contribution_rate
     FROM
-        clients_periods
+        clients AS c
+    INNER JOIN periods AS p ON p.client_period_id = c.id
     WHERE
         client_id = ? AND
         period_end BETWEEN ? AND ?`;
@@ -55,7 +56,11 @@ function getClientDataByQuarter(clientID, quarter, callback) {
 }
 
 function getClientData(clientID, callback) {
-    const query = "SELECT * FROM clients_periods WHERE client_id = ?";
+    const query = `SELECT *
+    FROM clients AS c
+    INNER JOIN periods AS p ON p.client_period_id = c.id
+     WHERE client_id = ?;
+     `;
 
     db.all(query, [clientID], (err, rows) => {
         if (err) {
@@ -72,26 +77,35 @@ function getClientData(clientID, callback) {
 }
 
 function getClientSources(clientID, callback) {
-    const query = `SELECT
-    cp.period_end,
-    r.source,
-    r.source_type,
-    r.customers,
-    r.contribution_rate
-FROM
-    records as r
-INNER JOIN clients_periods AS cp ON r.client_period_id = cp.id
-WHERE client_id = ?
-ORDER BY
-    cp.period_end ASC,
-    r.contribution_rate DESC;
-`;
+    const query = `
+        SELECT
+            p.period_end,
+            JSON_GROUP_ARRAY(JSON_OBJECT(
+                'source', r.source,
+                'source_type', r.source_type,
+                'customers', r.customers,
+                'contribution_rate', r.contribution_rate
+            )) AS records
+        FROM
+            records AS r
+        INNER JOIN periods AS p ON r.period_record_id = p.id
+        INNER JOIN clients AS c ON c.id = p.client_period_id
+        WHERE client_id = ?
+        GROUP BY p.period_end
+        ORDER BY p.period_end ASC;
+    `;
+
     db.all(query, [clientID], (err, rows) => {
         if (err) {
             callback(err, null);
-            console.log(err); return;
-        };
+            console.log(err);
+            return;
+        }
         if (rows && rows.length > 0) {
+            // Parse the JSON array into an array of objects
+            rows.forEach((row) => {
+                row.records = JSON.parse(row.records);
+            });
             callback(null, rows);
         } else {
             callback(null, []); // No data found for the client
@@ -99,21 +113,25 @@ ORDER BY
     });
 }
 
+
 function getClientSourcesByQuarter(clientID, quarter, callback) {
-    const query = `SELECT
-    cp.period_end,
-    r.source,
-    r.source_type,
-    r.customers,
-    r.contribution_rate
+    const query = `
+    SELECT
+    p.period_end,
+    JSON_GROUP_ARRAY(JSON_OBJECT(
+        'source', r.source,
+        'source_type', r.source_type,
+        'customers', r.customers,
+        'contribution_rate', r.contribution_rate
+    )) AS records
 FROM
-    records as r
-INNER JOIN clients_periods AS cp ON r.client_period_id = cp.id
-WHERE client_id = ? AND
-    cp.period_end BETWEEN ? AND ?
-ORDER BY
-    cp.period_end ASC,
-    r.contribution_rate DESC;
+    records AS r
+INNER JOIN periods AS p ON r.period_record_id = p.id
+INNER JOIN clients AS c ON c.id = p.client_period_id
+WHERE c.client_id = ? AND
+p.period_end BETWEEN ? AND ?
+GROUP BY p.period_end
+ORDER BY p.period_end ASC;
 `;
     let startDate, endDate;
     switch (quarter) {
@@ -145,16 +163,20 @@ ORDER BY
         }
 
         if (rows && rows.length > 0) {
+            // Parse the JSON array into an array of objects
+            rows.forEach((row) => {
+                row.records = JSON.parse(row.records);
+            });
             callback(null, rows);
         } else {
-            callback(null, []);
+            callback(null, []); // No data found for the client
         }
     });
 }
 
 
 function getAllClientIDs(callback) {
-    const query = "SELECT DISTINCT client_id FROM clients_periods";
+    const query = "SELECT DISTINCT client_id FROM clients";
     db.all(query, [], (err, rows) => {
         if (err) { callback(err, null); return; };
         if (rows && rows.length > 0) {
