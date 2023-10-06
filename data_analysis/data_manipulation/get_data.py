@@ -43,18 +43,13 @@ FROM sources;
     sources = [[row[0], row[1]] for row in rows]
     return sources
 
-def get_similar_clients(client_id,sources,conn):
+
+def get_similar_clients(client_ids, sources, conn):
     similar_clients=[]
-    query="""
-    SELECT client_id,source
-    FROM clients_periods AS cp
-    INNER JOIN ON cp.id = r.client_period_id
-    WHERE source LIKE ?
-    """
     return similar_clients
 
 
-
 client_ids = get_client_ids(conn)
-sources=get_client_sources(conn,client_ids[0])
-print(get_similar_clients(client_ids[0],sources,conn))
+sources = get_client_sources(conn, client_ids[0])
+print(sources)
+print(get_similar_clients(client_ids[0], sources, conn))
