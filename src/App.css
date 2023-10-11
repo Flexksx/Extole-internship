@@ -1,0 +1,68 @@
+/* App.css */
+
+/* Set a global styling for the body, reset margin and padding */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif; /* Optional: Choose your preferred font-family */
+}
+
+/* Center the contents of the App component */
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f0f0f0; /* Optional: Choose your background color */
+}
+
+/* Style the logo */
+.logo {
+  max-width: 80%; /* Adjust the logo width as needed */
+  height: auto;
+  margin-bottom: 20px; /* Optional: Add margin to separate logo and table */
+}
+
+/* Style the table container */
+.table-container {
+  width: 80%;
+  background-color: white; /* Optional: Choose your table background color */
+  border: 2px solid #ccc; /* Optional: Add a border to the table container */
+  border-radius: 5px; /* Optional: Add border radius for a rounded appearance */
+  padding: 20px; /* Optional: Add padding to the table container */
+}
+
+/* Style the table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Style table headings */
+th {
+  background-color: #f2f2f2; /* Optional: Choose a background color for table headings */
+  text-align: left;
+  padding: 10px;
+}
+
+/* Style table rows */
+tr:nth-child(even) {
+  background-color: #f2f2f2; /* Optional: Choose a background color for even rows */
+}
+
+tr:nth-child(odd) {
+  background-color: #ffffff; /* Optional: Choose a background color for odd rows */
+}
+
+/* Style table cells */
+td {
+  padding: 10px;
+}
+
+/* Optional: Add responsive styles for smaller screens */
+@media (max-width: 768px) {
+  .table-container {
+    width: 100%;
+  }
+}
