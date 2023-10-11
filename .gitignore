@@ -5,3 +5,4 @@ ClientDB/
 paths.py
 students_data.csv
 clients_per_day.json
+node_modules
