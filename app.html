@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Data from API</title>
+</head>
+<body>
+    Hello world
+    <div id="data-container"></div>
+
+    <script>
+        // Replace 'your_api_url' with the actual URL of your API
+        const apiUrl = 'http://192.168.20.13:3000/client-data/1007705046';
+
+        // Fetch data from the API
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                // Handle the fetched data here
+                const dataContainer = document.getElementById('data-container');
+                dataContainer.innerText = data; // Set plain text content
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error('Error:', error);
+            });
+    </script>
+</body>
+</html>
