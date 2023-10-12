@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import the Link component
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
@@ -23,7 +24,7 @@ export function ContributionChart() {
     },
     series: [
       {
-        name: 'ClientID 1',
+        name: 'CR, %',
         data: [20, 30, 25, 40, 45],
       },
     ],
@@ -38,22 +39,31 @@ export function ContributionChart() {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', paddingTop: '10px' }}>
-  <div style={{ backgroundColor: 'red', width: '20%', height: '150px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold' }}>
-    <p>Contribution Rate, %</p>
-  </div>
+  <Link to="/contributionrate">
+    <div style={{ backgroundColor: 'red', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
+      <p>Contribution Rate, %</p>
+    </div>
+  </Link>
   <div style={{ width: '20px' }}></div>
-  <div style={{ backgroundColor: 'red', width: '20%', height: '150px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold' }}>
-    <p>CR per Source</p>
-  </div>
+  <Link to="/crpersource">
+    <div style={{ backgroundColor: 'red', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
+      <p>CR per Source</p>
+    </div>
+  </Link>
   <div style={{ width: '20px' }}></div>
-  <div style={{ backgroundColor: 'red', width: '20%', height: '150px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold' }}>
-    <p>Month over Month</p>
-  </div>
+  <Link to="/monthovermonth">
+    <div style={{ backgroundColor: 'red', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
+      <p>Month over Month</p>
+    </div>
+  </Link>
   <div style={{ width: '20px' }}></div>
-  <div style={{ backgroundColor: 'red', width: '20%', height: '150px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold' }}>
-    <p>Quarter over Quarter</p>
-  </div>
+  <Link to="/quarteroverquarter">
+    <div style={{ backgroundColor: 'red', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
+      <p>Quarter over Quarter</p>
+    </div>
+  </Link>
 </div>
+
       <HighchartsReact highcharts={Highcharts} options={options} />
 
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>

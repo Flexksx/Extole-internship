@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Flex, Image, Text, VStack, Link, Icon } from '@chakra-ui/react';
-import { FaChartLine, FaHistory, FaBook, FaCog, FaPhone } from 'react-icons/fa';
-import { ContributionChart } from '../components';
-import { FaBell, FaUser, FaBars } from 'react-icons/fa';
+import { FaChartLine, FaHistory, FaBook, FaCog, FaPhone, FaBell, FaUser, FaBars } from 'react-icons/fa';
+import { ContributionChart, AttributionChart } from '../components';
+
 const logoUrl =
   'https://4a71b5761700fa86bf84.cdn6.editmysite.com/uploads/b/4a71b5761700fa86bf842ad62ae8665c4f535d423548ebe8cdacd81778f0713f/Extole-logo_large-copy_1656441979.png?width=800&optimize=medium';
 
@@ -63,23 +63,12 @@ export function Dashboard() {
       </Box>
 
       <Box w="15%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
-        <Text fontSize="xl">More</Text>
+  <Text fontSize="xl" textAlign="center">More</Text>
 
-        <VStack spacing={4} mt={4}>
-          <Link display="flex" alignItems="center">
-            <Icon as={FaBell} />
-            <Text>Notifications</Text>
-          </Link>
-          <Link display="flex" alignItems="center">
-            <Icon as={FaUser} />
-            <Text>Profile</Text>
-          </Link>
-          <Link display="flex" alignItems="center" to="/">
-  <Icon as={FaBars} />
-  <Text>Menu</Text>
-</Link>
-        </VStack>
-      </Box>
+
+  {/* Add the AttributionChart component below */}
+  <AttributionChart mb={4} />
+</Box>
     </Flex>
   );
 }
