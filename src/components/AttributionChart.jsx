@@ -39,10 +39,11 @@ export function AttributionChart() {
           <Icon as={FaUser} />
           <Text>Profile</Text>
         </Link>
-        <Link display="flex" alignItems="center" href="/dashboard">
+        <Link display="flex" alignItems="center" to="./"> {/* Set the 'to' attribute to the path of your 'App' component */}
           <Icon as={FaBars} />
           <Text>Menu</Text>
         </Link>
+
       </VStack>
 
       {/* The pie chart remains as it is */}

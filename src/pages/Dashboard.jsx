@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Flex, Image, Text, VStack, Link, Icon } from '@chakra-ui/react';
 import { FaChartLine, FaHistory, FaBook, FaCog, FaPhone, FaBell, FaUser, FaBars } from 'react-icons/fa';
 import { ContributionChart, AttributionChart } from '../components';
+import { Link as RouterLink } from 'react-router-dom'; // Import Link from react-router-dom
 
 const logoUrl =
   'https://4a71b5761700fa86bf84.cdn6.editmysite.com/uploads/b/4a71b5761700fa86bf842ad62ae8665c4f535d423548ebe8cdacd81778f0713f/Extole-logo_large-copy_1656441979.png?width=800&optimize=medium';
@@ -50,9 +51,9 @@ export function Dashboard() {
             <Icon as={FaCog} />
             <Text>Settings</Text>
           </Link>
-          <Link display="flex" alignItems="center">
-            <Icon as={FaPhone} />
-            <Text>Contact us</Text>
+          <Link as={RouterLink} to="/"> {/* Link to the homepage */}
+            <Icon as={FaBars} />
+            <Text>Menu</Text>
           </Link>
         </VStack>
       </Box>
@@ -63,12 +64,9 @@ export function Dashboard() {
       </Box>
 
       <Box w="15%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
-  <Text fontSize="xl" textAlign="center">More</Text>
-
-
-  {/* Add the AttributionChart component below */}
-  <AttributionChart mb={4} />
-</Box>
+        <Text fontSize="xl" textAlign="center">More</Text>
+        {/* Add your content for the right menu here */}
+      </Box>
     </Flex>
   );
 }

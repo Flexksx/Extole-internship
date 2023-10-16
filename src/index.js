@@ -1,20 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
-import {Dashboard, App, CRperSource} from "./pages";
+import { Dashboard, App, CRperSource } from "./pages";
 import { ChakraProvider } from '@chakra-ui/react'
-import { BrowserRouter as Router, Route,Routes, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, Outlet } from 'react-router-dom'; // Import Link and Outlet
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-
   <React.StrictMode>
     <ChakraProvider>
-    <Router>
+      <Router>
         <Routes>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/crpersource" element={<CRperSource />} />
-          <Route path="/" element={<App />} />
+          <Route path="/" element={<App />} /> {/* Route for the homepage */}
         </Routes>
       </Router>
     </ChakraProvider>
