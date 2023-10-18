@@ -9,9 +9,10 @@ import {
   Icon,
   HStack,
 } from '@chakra-ui/react';
-import { FaChartLine, FaHistory, FaBook, FaCog, FaBars, FaPhone } from 'react-icons/fa';
+import { FaChartLine, FaHistory, FaBook, FaCog, FaBars, FaPhone, FaUser } from 'react-icons/fa';
 import { DashboardMiddle } from '../components';
 import { Link as RouterLink } from 'react-router-dom';
+import { AttributionChart } from '../components';
 
 const logoUrl =
   'https://4a71b5761700fa86bf84.cdn6.editmysite.com/uploads/b/4a71b5761700fa86bf842ad62ae8665c4f535d423548ebe8cdacd81778f0713f/Extole-logo_large-copy_1656441979.png?width=800&optimize=medium';
@@ -75,7 +76,21 @@ export function Dashboard() {
 
       <Box w="15%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
         <Text fontSize="xl" textAlign="center">More</Text>
-        {/* Add your content for the right part of the dashboard here */}
+        <VStack spacing={4} mt={4}>
+          <Link as={RouterLink} to="/profile">
+            <HStack>
+              <Icon as={FaUser} /> {/* Use an appropriate icon for "Profile" */}
+              <Text>Profile</Text>
+            </HStack>
+          </Link>
+          <Link as={RouterLink} to="/">
+            <HStack>
+              <Icon as={FaBars} /> {/* Use an appropriate icon for "Menu" */}
+              <Text>Menu</Text>
+            </HStack>
+          </Link>
+          <AttributionChart />
+        </VStack>
       </Box>
     </Flex>
   );
