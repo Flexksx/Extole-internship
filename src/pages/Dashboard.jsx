@@ -1,8 +1,17 @@
 import React from 'react';
-import { Box, Flex, Image, Text, VStack, Link, Icon } from '@chakra-ui/react';
-import { FaChartLine, FaHistory, FaBook, FaCog, FaPhone, FaBell, FaUser, FaBars } from 'react-icons/fa';
-import { ContributionChart, AttributionChart } from '../components';
-import { Link as RouterLink } from 'react-router-dom'; // Import Link from react-router-dom
+import {
+  Box,
+  Flex,
+  Image,
+  Text,
+  VStack,
+  Link,
+  Icon,
+  HStack,
+} from '@chakra-ui/react';
+import { FaChartLine, FaHistory, FaBook, FaCog, FaBars, FaPhone } from 'react-icons/fa';
+import { DashboardMiddle } from '../components';
+import { Link as RouterLink } from 'react-router-dom';
 
 const logoUrl =
   'https://4a71b5761700fa86bf84.cdn6.editmysite.com/uploads/b/4a71b5761700fa86bf842ad62ae8665c4f535d423548ebe8cdacd81778f0713f/Extole-logo_large-copy_1656441979.png?width=800&optimize=medium';
@@ -45,27 +54,28 @@ export function Dashboard() {
             <Text>Records</Text>
           </Link>
         </VStack>
-        
+
         <VStack spacing={2} mb={4} mt="auto">
           <Link display="flex" alignItems="center">
             <Icon as={FaCog} />
             <Text>Settings</Text>
           </Link>
-          <Link as={RouterLink} to="/"> {/* Link to the homepage */}
-            <Icon as={FaBars} />
-            <Text>Menu</Text>
+          <Link display="flex" alignItems="center">
+            <HStack>
+              <Icon as={FaPhone} />
+              <Text>Contact Us</Text>
+            </HStack>
           </Link>
         </VStack>
       </Box>
 
       <Box w="70%" bg="white" borderRadius="md" p={4} boxShadow="md">
-        {/* Add your content for the center section here, e.g., ContributionChart */}
-        <ContributionChart />
+        <DashboardMiddle />
       </Box>
 
       <Box w="15%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
         <Text fontSize="xl" textAlign="center">More</Text>
-        {/* Add your content for the right menu here */}
+        {/* Add your content for the right part of the dashboard here */}
       </Box>
     </Flex>
   );

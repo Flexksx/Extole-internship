@@ -1,3 +1,4 @@
 export * from "./Table";
-export * from "./ContributionChart";
+export * from "./DashboardMiddle";
 export * from "./AttributionChart";
+export * from "./DashboardLeft";

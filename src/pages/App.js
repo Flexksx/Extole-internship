@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CustomTable } from '../components';
-import { ContributionChart } from '../components';
+import { DashboardMiddle } from '../components';
+import { DashboardLeft } from '../components';
 import { useDisclosure } from '@chakra-ui/react';
 
 export function App() {

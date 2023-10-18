@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'; // Import the Link component
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
-export function ContributionChart() {
+export function DashboardMiddle() {
   const weeks = Array.from({ length: 15 }, (_, index) => `Week ${index + 1}`);
   const options = {
     chart: {
@@ -78,4 +78,4 @@ export function ContributionChart() {
   );
 }
 
-export default ContributionChart;
+export default DashboardMiddle;
