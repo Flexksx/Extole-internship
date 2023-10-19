@@ -10,8 +10,7 @@ Some guy whose name I forgot sorry
 2. ```pip install pandas```\
 ```pip install jupyterlab```\
 ```pip install notebook```\
-``` sudo dnf install sqlite3```\
-```pip install sqlite3```
+``` sudo dnf install sqlite3```
 3. Check all the paths in the scripts and change them while running them. Sorry.
 4. Be sure that you have everything installed, because I might have forgotten something :)
 5. Create a ClientDB folder in the main directory and a Clients.db file inside it.
