@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
-export function DashboardMiddle() {
-  const weeks = Array.from({ length: 15 }, (_, index) => `Week ${index + 1}`);
+export function CRperSourceMiddle() {
+  const weeks = Array.from({ length: 15 }, (_, index) => `Source ${index + 1}`);
   const options = {
     chart: {
-      type: 'line',
+      type: 'bar',
       height: '60%', // Adjust the height to make it larger
     },
     title: {
-      text: 'Contribution Rate for ClientID:',
+      text: 'Attributed per Source: ',
       align: 'left',
     },
     xAxis: {
@@ -19,12 +19,12 @@ export function DashboardMiddle() {
     },
     yAxis: {
       title: {
-        text: 'Contribution Rate',
+        text: '',
       },
     },
     series: [
       {
-        name: 'CR, %',
+        name: 'Attributed',
         data: [20, 30, 25, 40, 45, 50, 60, 70, 65, 55, 50, 45],
       },
     ],
@@ -78,4 +78,4 @@ export function DashboardMiddle() {
   );
 }
 
-export default DashboardMiddle;
+export default CRperSourceMiddle;

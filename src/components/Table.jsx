@@ -8,6 +8,7 @@ import {
   Tr,
   Th,
   Tbody,
+  Text,
 } from '@chakra-ui/react';
 
 export function CustomTable() {
@@ -19,22 +20,29 @@ export function CustomTable() {
         width="200"
       />
       <TableContainer w="80%" mt="20px">
-        <Table variant="striped" borderWidth="2px">
-          <TableCaption>Extole 2023</TableCaption>
-          <Thead>
-            <Tr>
-              <Th>Client ID</Th>
-              <Th>Dashboard</Th>
-              <Th>Contribution Rate</Th>
-              <Th>Month vs Month</Th>
-              <Th>Quarter vs Quarter</Th>
-              <Th>Column 6</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-          </Tbody>
-        </Table>
-      </TableContainer>
+  <Table variant="striped" borderWidth="2px">
+    <TableCaption>Extole 2023</TableCaption>
+    <Thead>
+      <Tr>
+        <Th>
+          <Text textAlign="center">Client ID</Text>
+        </Th>
+        <Th>
+          <Text textAlign="center">Contribution Rate</Text>
+        </Th>
+        <Th>
+          <Text textAlign="center">Month vs Month</Text>
+        </Th>
+        <Th>
+          <Text textAlign="center">Quarter vs Quarter</Text>
+        </Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+    </Tbody>
+  </Table>
+</TableContainer>
+
     </div>
   );
 }
