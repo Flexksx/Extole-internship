@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-// const IP_ADDRESS = '192.168.1.123'; // Replace with your local IP address
+const IP_ADDRESS = '192.168.1.123'; // Replace with your local IP address
 const cors = require("cors"); // Import the cors package
 const { getClientSourcesByQuarter, getClientDataByQuarter, getClientData, getAllClientIDs, getClientSources } = require("./database");
 const { log } = require("console");
@@ -122,7 +122,7 @@ app.get("/",(req, res) => {
 const PORT = 2000; // Choose a port number of your choice
 
 
-app.listen(PORT, () => {
-    console.log(`Server is running on :${PORT}`);
+app.listen(PORT, IP_ADDRESS, () => {
+    console.log(`Server is running on :${IP_ADDRESS,":",PORT}`);
 });
 
