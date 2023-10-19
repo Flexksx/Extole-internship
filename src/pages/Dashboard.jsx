@@ -12,12 +12,47 @@ import {
 import { FaChartLine, FaHistory, FaBook, FaCog, FaBars, FaPhone, FaUser } from 'react-icons/fa';
 import { DashboardMiddle } from '../components';
 import { Link as RouterLink } from 'react-router-dom';
-import { AttributionChart } from '../components';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 
 const logoUrl =
   'https://4a71b5761700fa86bf84.cdn6.editmysite.com/uploads/b/4a71b5761700fa86bf842ad62ae8665c4f535d423548ebe8cdacd81778f0713f/Extole-logo_large-copy_1656441979.png?width=800&optimize=medium';
 
 export function Dashboard() {
+  const pieChartOptions = {
+    chart: {
+      type: 'pie',
+    },
+    title: {
+      text: 'Attribution Rate',
+    },
+    plotOptions: {
+      pie: {
+        dataLabels: {
+          enabled: false, // Disable data labels (category names)
+        },
+        showInLegend: true, // Show legend to indicate categories instead
+      },
+    },
+    series: [
+      {
+        name: 'Categories',
+        colorByPoint: true,
+        data: [
+          {
+            name: 'Unattributed',
+            y: 10, // Add your data for Unattributed here
+          },
+          {
+            name: 'Attributed',
+            y: 20, // Add your data for Attributed here
+          },
+        ],
+      },
+    ],
+  };
+  
+
   return (
     <Flex
       w="100%"
@@ -41,20 +76,21 @@ export function Dashboard() {
           <Text fontSize="xl">Dashboard</Text>
         </Box>
 
-        <VStack spacing={2} align="center" flex="1">
-          <Link display="flex" alignItems="center">
-            <Icon as={FaChartLine} />
-            <Text>Analytics</Text>
-          </Link>
-          <Link display="flex" alignItems="center">
-            <Icon as={FaHistory} />
-            <Text>History</Text>
-          </Link>
-          <Link display="flex" alignItems="center">
-            <Icon as={FaBook} />
-            <Text>Records</Text>
-          </Link>
-        </VStack>
+        <VStack spacing={4} align="center" flex="1" mb={4}>
+  <Link display="flex" alignItems="center">
+    <Icon as={FaChartLine} />
+    <Text>Analytics</Text>
+  </Link>
+  <Link display="flex" alignItems="center">
+    <Icon as={FaHistory} />
+    <Text>History</Text>
+  </Link>
+  <Link display="flex" alignItems="center">
+    <Icon as={FaBook} />
+    <Text>Records</Text>
+  </Link>
+</VStack>
+
 
         <VStack spacing={2} mb={4} mt="auto">
           <Link display="flex" alignItems="center">
@@ -70,28 +106,32 @@ export function Dashboard() {
         </VStack>
       </Box>
 
-      <Box w="70%" bg="white" borderRadius="md" p={4} boxShadow="md">
-        <DashboardMiddle />
-      </Box>
+      <Box w="65%" bg="white" borderRadius="md" p={4} boxShadow="md">
+  <DashboardMiddle />
+</Box>
 
-      <Box w="15%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
-        <Text fontSize="xl" textAlign="center">More</Text>
-        <VStack spacing={4} mt={4}>
-          <Link as={RouterLink} to="/profile">
-            <HStack>
-              <Icon as={FaUser} /> {/* Use an appropriate icon for "Profile" */}
-              <Text>Profile</Text>
-            </HStack>
-          </Link>
-          <Link as={RouterLink} to="/">
-            <HStack>
-              <Icon as={FaBars} /> {/* Use an appropriate icon for "Menu" */}
-              <Text>Menu</Text>
-            </HStack>
-          </Link>
-          <AttributionChart />
-        </VStack>
-      </Box>
+<Box w="20%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
+  <Text fontSize="xl" textAlign="center">More</Text>
+  <VStack spacing={4} mt={4}>
+    <Link as={RouterLink} to="/profile">
+      <HStack>
+        <Icon as={FaUser} />
+        <Text>Profile</Text>
+      </HStack>
+    </Link>
+    <Link as={RouterLink} to="/">
+      <HStack>
+        <Icon as={FaBars} />
+        <Text>Menu</Text>
+      </HStack>
+    </Link>
+    <Box w="70%" bg="white" borderRadius="md" p={4} boxShadow="md" style={{ width: '100%', paddingBottom: '100%', position: 'relative' }}>
+      <HighchartsReact highcharts={Highcharts} options={pieChartOptions} containerProps={{ style: { position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 } }} />
+    </Box>
+  </VStack>
+</Box>
+
+
     </Flex>
   );
 }

@@ -6,12 +6,14 @@ export function AttributionChart() {
   const options = {
     chart: {
       type: 'pie',
-      plotBorderWidth: 0,
-      plotShadow: false,
-      spacing: [0, 0, 0, 0], // Adjust spacing as needed
     },
     title: {
       text: 'Attribution Rate',
+    },
+    plotOptions: {
+      pie: {
+        size: '30%', // Set the size to a smaller value, adjust as needed
+      },
     },
     series: [
       {
@@ -34,4 +36,3 @@ export function AttributionChart() {
     <HighchartsReact highcharts={Highcharts} options={options} />
   );
 }
-export default AttributionChart;
