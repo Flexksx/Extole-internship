@@ -1,5 +1,5 @@
-// components/Table.js
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   TableContainer,
   Table,
@@ -8,10 +8,16 @@ import {
   Tr,
   Th,
   Tbody,
+  Td,
   Text,
 } from '@chakra-ui/react';
 
 export function CustomTable() {
+  const data = [
+    { id: 123, contributionRate: 45, monthVsMonth: 10, quarterVsQuarter: -5 },
+    { id: 456, contributionRate: 72, monthVsMonth: -15, quarterVsQuarter: 20 },
+  ];
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <img
@@ -20,31 +26,60 @@ export function CustomTable() {
         width="200"
       />
       <TableContainer w="80%" mt="20px">
-  <Table variant="striped" borderWidth="2px">
-    <TableCaption>Extole 2023</TableCaption>
-    <Thead>
-      <Tr>
-        <Th>
-          <Text textAlign="center">Client ID</Text>
-        </Th>
-        <Th>
-          <Text textAlign="center">Contribution Rate</Text>
-        </Th>
-        <Th>
-          <Text textAlign="center">Month vs Month</Text>
-        </Th>
-        <Th>
-          <Text textAlign="center">Quarter vs Quarter</Text>
-        </Th>
-      </Tr>
-    </Thead>
-    <Tbody>
-    </Tbody>
-  </Table>
-</TableContainer>
-
+        <Table variant="striped" borderWidth="2px">
+          <TableCaption>Extole 2023</TableCaption>
+          <Thead>
+            <Tr>
+              <Th>
+                <Text textAlign="center">Client ID</Text>
+              </Th>
+              <Th>
+                <Text textAlign="center">Contribution Rate</Text>
+              </Th>
+              <Th>
+                <Text textAlign="center">Month vs Month</Text>
+              </Th>
+              <Th>
+                <Text textAlign="center">Quarter vs Quarter</Text>
+              </Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {data.map((row, index) => (
+              <Tr key={index}>
+                <Td>
+                  <Text textAlign="center">
+                    {index > 0 ? (
+                      <Link to="/dashboard">{row.id}</Link>
+                    ) : (
+                      row.id
+                    )}
+                  </Text>
+                </Td>
+                <Td>
+                  <Text textAlign="center">{row.contributionRate}</Text>
+                </Td>
+                <Td>
+                  <Text
+                    textAlign="center"
+                    color={row.monthVsMonth > 0 ? 'green' : 'red'}
+                  >
+                    {row.monthVsMonth > 0 ? `+${row.monthVsMonth}% ↑` : `${row.monthVsMonth}% ↓`}
+                  </Text>
+                </Td>
+                <Td>
+                  <Text
+                    textAlign="center"
+                    color={row.quarterVsQuarter > 0 ? 'green' : 'red'}
+                  >
+                    {row.quarterVsQuarter > 0 ? `+${row.quarterVsQuarter}% ↑` : `${row.quarterVsQuarter}% ↓`}
+                  </Text>
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }
-
-export default CustomTable;
