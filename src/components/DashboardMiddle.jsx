@@ -26,6 +26,7 @@ export function DashboardMiddle() {
       {
         name: 'CR, %',
         data: [20, 30, 25, 40, 45, 50, 60, 70, 65, 55, 50, 45],
+        color: "#e01c4c",
       },
     ],
   };
@@ -40,25 +41,25 @@ export function DashboardMiddle() {
     <div style={{ height: '100%', padding: '10px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', paddingTop: '10px' }}>
         <Link to="/dashboard">
-          <div style={{ backgroundColor: 'red', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
+          <div style={{ backgroundColor: '#e01c4c', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
             <p>Contribution Rate, %</p>
           </div>
         </Link>
         <div style={{ width: '20px' }}></div>
         <Link to="/crpersource">
-          <div style={{ backgroundColor: 'red', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
+          <div style={{ backgroundColor: '#e01c4c', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
             <p>CR per Source</p>
           </div>
         </Link>
         <div style={{ width: '20px' }}></div>
         <Link to="/monthovermonth">
-          <div style={{ backgroundColor: 'red', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
+          <div style={{ backgroundColor: '#e01c4c', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
             <p>Month over Month</p>
           </div>
         </Link>
         <div style={{ width: '20px' }}></div>
         <Link to="/quarteroverquarter">
-          <div style={{ backgroundColor: 'red', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
+          <div style={{ backgroundColor: '#e01c4c', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
             <p>Quarter over Quarter</p>
           </div>
         </Link>

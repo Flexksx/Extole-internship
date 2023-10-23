@@ -43,10 +43,12 @@ const pieChartOptions = {
         {
           name: 'Unattributed',
           y: 10, // Add your data for Unattributed here
+          color: "#e94f38",
         },
         {
           name: 'Attributed',
           y: 20, // Add your data for Attributed here
+          color: "#e01c4c",
         },
       ],
     },
@@ -67,7 +69,7 @@ export function CRperSource() {
         <Image src={logoUrl} alt="Company Logo" w="75%" mx="auto" mb={4} />
 
         <Box
-          bg="red"
+          bg="#e01c4c"
           borderRadius="md"
           p={2}
           textAlign="center"
@@ -114,7 +116,7 @@ export function CRperSource() {
       </Box>
 
       <Box w="20%" bg="#d3d3d3" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
-        <Text fontSize="xl" textAlign="center">More</Text>
+      <Text fontSize="3xl" textAlign="center" fontWeight="bold">More</Text>
         <VStack spacing={4} mt={4}>
           <Link as={RouterLink} to="/profile">
             <HStack>
