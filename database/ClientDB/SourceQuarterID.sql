@@ -1,4 +1,4 @@
--- database: C:\Users\liviu\Desktop\extole\practica\database\ClientDB\Clients.db
+-- database: Clients.db
 -- Query for computing contribution per source per quarter by cliend id
 WITH SourceQuarterContributions AS (
     SELECT
