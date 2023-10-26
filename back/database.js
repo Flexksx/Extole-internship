@@ -178,14 +178,19 @@ ORDER BY p.period_end ASC;
 function getAllClientIDs(callback) {
     const query = "SELECT DISTINCT client_id FROM clients";
     db.all(query, [], (err, rows) => {
-        if (err) { callback(err, null); return; };
+        if (err) {
+            callback(err, null);
+            return;
+        };
         if (rows && rows.length > 0) {
-            callback(null, rows);
+            const clientIDs = rows.map(row => row.client_id); // Extract client IDs from rows
+            callback(null, clientIDs); // Return the array of client IDs
         } else {
             callback(null, []); // No data found for the client
         }
     });
 }
+
 
 
 module.exports = {
