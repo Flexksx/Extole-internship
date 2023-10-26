@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 // const IP_ADDRESS = '192.168.1.123'; // Replace with your local IP address
 const cors = require("cors"); // Import the cors package
-const { getClientSourcesByQuarter, getClientDataByQuarter, getClientData, getAllClientIDs, getClientSources, getSourcePercentageByQuarter } = require("./database");
+const { MainMenuData, getClientSourcesByQuarter, getClientDataByQuarter, getClientData, getAllClientIDs, getClientSources, getSourcePercentageByQuarter } = require("./database");
 const { log } = require("console");
 
 
@@ -20,6 +20,16 @@ app.get('/client-data/:clientID', (req, res) => {
             res.status(200).json(clientData);
         } else {
             res.status(404).json({ message: 'Client not found' });
+        }
+    });
+});
+
+app.get('/mainmenu', (req, res) => {
+    MainMenuData((err, data) => {
+        if (err) {
+            res.status(500).json({ error: 'An error occurred.' });
+        } else {
+            res.json(data);
         }
     });
 });
@@ -114,19 +124,6 @@ app.get('/client-data/:clientID/quarter/:quarter/sources', (req, res) => {
         }
     });
 });
-
-<<<<<<< HEAD
-app.get("/",(req, res) => {
-    res.status(404).json({ message: 'Welcome to the server.' });
-});
-
-const PORT = 2000; // Choose a port number of your choice
-
-
-app.listen(PORT, () => {
-    console.log(`Server is running on ${PORT}`);
-=======
-
 app.get('/sources/quarters/', (req, res) => {
     getSourcePercentageByQuarter((err, clientData) => {
         if (err) {
@@ -143,7 +140,5 @@ const PORT = 1999; // Choose a port number of your choice
 
 
 app.listen(PORT, () => {
-    console.log(`Server is running on localhost:${PORT}`);
->>>>>>> liviu
+    console.log(`Server is running on localhost: ${PORT}`);
 });
-
