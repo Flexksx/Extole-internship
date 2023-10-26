@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   TableContainer,
@@ -11,12 +11,21 @@ import {
   Td,
   Text,
 } from '@chakra-ui/react';
+import axios from 'axios';
 
 export function CustomTable() {
-  const data = [
-    { id: 123, contributionRate: 45, monthVsMonth: 10, quarterVsQuarter: -5 },
-    { id: 456, contributionRate: 72, monthVsMonth: -15, quarterVsQuarter: 20 },
-  ];
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    // Fetch data from your API endpoint
+    axios.get('http://localhost:2000/mainmenu')
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -34,13 +43,13 @@ export function CustomTable() {
                 <Text textAlign="center">Client ID</Text>
               </Th>
               <Th>
-                <Text textAlign="center">Contribution Rate</Text>
+                <Text textAlign="center">Average Contribution Rate</Text>
               </Th>
               <Th>
-                <Text textAlign="center">Month vs Month</Text>
+                <Text textAlign="center">Percentage Difference 09 vs 08</Text>
               </Th>
               <Th>
-                <Text textAlign="center">Quarter vs Quarter</Text>
+                <Text textAlign="center">Percentage Difference Q3 vs Q2</Text>
               </Th>
             </Tr>
           </Thead>
@@ -50,29 +59,31 @@ export function CustomTable() {
                 <Td>
                   <Text textAlign="center">
                     {index > 0 ? (
-                      <Link to="/dashboard">{row.id}</Link>
+                      <Link to={`/client/${row.client_id}`}>{row.client_id}</Link>
                     ) : (
-                      row.id
+                      <Link to={`/client/${row.client_id}`}>{row.client_id}</Link>
                     )}
                   </Text>
                 </Td>
                 <Td>
-                  <Text textAlign="center">{row.contributionRate}</Text>
-                </Td>
-                <Td>
-                  <Text
-                    textAlign="center"
-                    color={row.monthVsMonth > 0 ? 'green' : 'red'}
-                  >
-                    {row.monthVsMonth > 0 ? `+${row.monthVsMonth}% ↑` : `${row.monthVsMonth}% ↓`}
+                  <Text textAlign="center">
+                    {row.avg_contribution_rate_09 !== null
+                      ? row.avg_contribution_rate_09.toFixed(2)
+                      : 'N/A'}
                   </Text>
                 </Td>
                 <Td>
-                  <Text
-                    textAlign="center"
-                    color={row.quarterVsQuarter > 0 ? 'green' : 'red'}
-                  >
-                    {row.quarterVsQuarter > 0 ? `+${row.quarterVsQuarter}% ↑` : `${row.quarterVsQuarter}% ↓`}
+                  <Text textAlign="center" style={{ color: row.percentage_difference_09_vs_08 <= 0 || row.percentage_difference_09_vs_08 === null ? 'red' : 'green' }}>
+                    {row.percentage_difference_09_vs_08 !== null
+                      ? `${row.percentage_difference_09_vs_08.toFixed(2)}% ${row.percentage_difference_09_vs_08 <= 0 || row.percentage_difference_09_vs_08 === null ? '↓' : '↑'}`
+                      : 'N/A'}
+                  </Text>
+                </Td>
+                <Td>
+                  <Text textAlign="center" style={{ color: row.percentage_difference_Q3_vs_Q2 <= 0 || row.percentage_difference_Q3_vs_Q2 === null ? 'red' : 'green' }}>
+                    {row.percentage_difference_Q3_vs_Q2 !== null
+                      ? `${row.percentage_difference_Q3_vs_Q2.toFixed(2)}% ${row.percentage_difference_Q3_vs_Q2 <= 0 || row.percentage_difference_Q3_vs_Q2 === null ? '↓' : '↑'}`
+                      : 'N/A'}
                   </Text>
                 </Td>
               </Tr>
