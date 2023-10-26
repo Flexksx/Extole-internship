@@ -122,7 +122,7 @@ app.get("/",(req, res) => {
 const PORT = 2000; // Choose a port number of your choice
 
 
-app.listen(PORT, IP_ADDRESS, () => {
-    console.log(`Server is running on :${IP_ADDRESS,":",PORT}`);
+app.listen(PORT, () => {
+    console.log(`Server is running on ${PORT}`);
 });
 
