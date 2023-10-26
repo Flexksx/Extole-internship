@@ -174,6 +174,55 @@ ORDER BY p.period_end ASC;
     });
 }
 
+function getSourcePercentageByQuarter(callback) {
+    const query = `WITH
+    SourceQuarterCounts AS (
+        SELECT
+            CASE
+                WHEN p.period_end >= '2023-01-01'
+                AND p.period_end < '2023-04-01' THEN 'Quarter 1'
+                WHEN p.period_end >= '2023-04-01'
+                AND p.period_end < '2023-07-01' THEN 'Quarter 2'
+                WHEN p.period_end >= '2023-07-01'
+                AND p.period_end < '2023-10-01' THEN 'Quarter 3'
+                WHEN p.period_end >= '2023-10-01'
+                AND p.period_end < '2024-01-01' THEN 'Quarter 4'
+                ELSE CAST(p.period_end AS TEXT)
+            END AS Quarter,
+            r.source AS "Source"
+        FROM
+            records AS r
+            INNER JOIN periods AS p ON r.period_record_id = p.id
+    )
+SELECT
+    Quarter,
+    "Source",
+    (COUNT(*) * 100.0) / SUM(COUNT(*)) OVER (
+        PARTITION BY
+            Quarter
+    ) AS Percentage
+FROM
+    SourceQuarterCounts
+GROUP BY
+    Quarter,
+    "Source"
+ORDER BY
+    Quarter,
+    "Source";`
+    db.all(query, [], (err, rows) => {
+        if (err) {
+            callback(err, null);
+            return;
+        }
+        if (rows && rows.length > 0) {
+            callback(null, rows);
+        } else {
+            callback(null, []); // No data found for the client
+        }
+    });
+}
+
+
 
 function getAllClientIDs(callback) {
     const query = "SELECT DISTINCT client_id FROM clients";
@@ -198,5 +247,6 @@ module.exports = {
     getClientDataByQuarter,
     getAllClientIDs,
     getClientSources,
-    getClientData
+    getClientData,
+    getSourcePercentageByQuarter
 };
