@@ -22,7 +22,7 @@ const logoUrl =
 const pieChartOptions = {
   chart: {
     type: 'pie',
-    backgroundColor: '#d3d3d3',
+    backgroundColor: 'white',
   },
   title: {
     text: 'Attribution Rate',
@@ -61,11 +61,11 @@ export function Dashboard() {
       w="100%"
       h="100vh"
       p={4}
-      bg="grey"
+      bg="#dbbaba"
       borderRadius="lg"
       justifyContent="space-between"
     >
-      <Box w="15%" bg="#d3d3d3" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
+      <Box w="15%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column" h="96vh">
         <Image src={logoUrl} alt="Company Logo" w="75%" mx="auto" mb={4} />
 
         <Box
@@ -108,14 +108,14 @@ export function Dashboard() {
         </VStack>
       </Box>
 
-      <Box w="65%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4}>
+      <Box w="65%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4} h="96vh">
         <Text fontSize="3xl" fontWeight="bold" textAlign="center" mb={4}>
           Dashboard Title
         </Text>
         <DashboardMiddle />
       </Box>
 
-      <Box w="20%" bg="#d3d3d3" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
+      <Box w="20%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column" h="96vh">
         <Text fontSize="3xl" textAlign="center" fontWeight="bold">More</Text>
         <VStack spacing={4} mt={4}>
           <Link as={RouterLink} to="/profile">

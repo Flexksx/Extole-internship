@@ -22,7 +22,7 @@ const logoUrl =
 const pieChartOptions = {
   chart: {
     type: 'pie',
-    backgroundColor: '#d3d3d3',
+    backgroundColor: 'white',
   },
   title: {
     text: 'Attribution Rate',
@@ -65,11 +65,11 @@ export function CRperSource() {
       borderRadius="lg"
       justifyContent="space-between"
     >
-      <Box w="15%" bg="#d3d3d3" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
+      <Box w="15%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
         <Image src={logoUrl} alt="Company Logo" w="75%" mx="auto" mb={4} />
 
         <Box
-          bg="#e01c4c"
+          bg="white"
           borderRadius="md"
           p={2}
           textAlign="center"
@@ -115,8 +115,8 @@ export function CRperSource() {
         <CRperSourceMiddle />
       </Box>
 
-      <Box w="20%" bg="#d3d3d3" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
-      <Text fontSize="3xl" textAlign="center" fontWeight="bold">More</Text>
+      <Box w="20%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
+        <Text fontSize="3xl" textAlign="center" fontWeight="bold">More</Text>
         <VStack spacing={4} mt={4}>
           <Link as={RouterLink} to="/profile">
             <HStack>

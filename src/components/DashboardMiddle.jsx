@@ -31,7 +31,7 @@ export function DashboardMiddle() {
     ],
   };
 
-  const [selectedQuarter, setSelectedQuarter] = useState('Quarter 1');
+  const [selectedQuarter, setSelectedQuarter] = useState('Q1');
 
   const handleQuarterChange = (e) => {
     setSelectedQuarter(e.target.value);
@@ -69,10 +69,10 @@ export function DashboardMiddle() {
 
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
         <select value={selectedQuarter} onChange={handleQuarterChange} style={{ width: '200px' }}>
-          <option value="Quarter 1">Quarter 1</option>
-          <option value="Quarter 2">Quarter 2</option>
-          <option value="Quarter 3">Quarter 3</option>
-          <option value="Quarter 4">Quarter 4</option>
+          <option value="Q1">Quarter 1</option>
+          <option value="Q2">Quarter 2</option>
+          <option value="Q3">Quarter 3</option>
+          <option value="Q4">Quarter 4</option>
         </select>
       </div>
     </div>
