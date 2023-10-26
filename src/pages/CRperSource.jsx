@@ -10,7 +10,7 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import { FaChartLine, FaHistory, FaBook, FaCog, FaBars, FaPhone, FaUser } from 'react-icons/fa';
-import { DashboardMiddle } from '../components';
+import { CRperSourceMiddle, DashboardMiddle } from '../components';
 import { Link as RouterLink } from 'react-router-dom';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
@@ -55,21 +55,21 @@ const pieChartOptions = {
   ],
 };
 
-export function Dashboard() {
+export function CRperSource() {
   return (
     <Flex
       w="100%"
       h="100vh"
       p={4}
-      bg="#dbbaba"
+      bg="grey"
       borderRadius="lg"
       justifyContent="space-between"
     >
-      <Box w="15%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column" h="96vh">
+      <Box w="15%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
         <Image src={logoUrl} alt="Company Logo" w="75%" mx="auto" mb={4} />
 
         <Box
-          bg="#e01c4c"
+          bg="white"
           borderRadius="md"
           p={2}
           textAlign="center"
@@ -108,14 +108,14 @@ export function Dashboard() {
         </VStack>
       </Box>
 
-      <Box w="65%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4} h="96vh">
+      <Box w="65%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4}>
         <Text fontSize="3xl" fontWeight="bold" textAlign="center" mb={4}>
           Dashboard Title
         </Text>
-        <DashboardMiddle />
+        <CRperSourceMiddle />
       </Box>
 
-      <Box w="20%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column" h="96vh">
+      <Box w="20%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
         <Text fontSize="3xl" textAlign="center" fontWeight="bold">More</Text>
         <VStack spacing={4} mt={4}>
           <Link as={RouterLink} to="/profile">
@@ -139,4 +139,4 @@ export function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default CRperSource;
