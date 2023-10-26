@@ -89,7 +89,8 @@ ORDER BY
     db.all(query, [clientID], (err, rows) => {
         if (err) {
             callback(err, null);
-            console.log(err); return;
+            console.log(err);
+            return;
         };
         if (rows && rows.length > 0) {
             callback(null, rows);
@@ -152,6 +153,48 @@ ORDER BY
     });
 }
 
+function MainMenuData(callback) {
+    const query = `WITH AverageContributions AS (
+    SELECT
+    c.client_id,
+        SUM(CASE WHEN SUBSTR(p.period_end, 6, 2) = '09' THEN p.contribution_rate ELSE 0 END) /
+        COUNT(CASE WHEN SUBSTR(p.period_end, 6, 2) = '09' THEN p.contribution_rate END) AS avg_contribution_rate_09,
+            SUM(CASE WHEN SUBSTR(p.period_end, 6, 2) = '08' THEN p.contribution_rate ELSE 0 END) /
+            COUNT(CASE WHEN SUBSTR(p.period_end, 6, 2) = '08' THEN p.contribution_rate END) AS avg_contribution_rate_08,
+                SUM(CASE WHEN SUBSTR(p.period_end, 6, 2) IN('04', '05', '06') THEN p.contribution_rate ELSE 0 END) /
+                COUNT(CASE WHEN SUBSTR(p.period_end, 6, 2) IN('04', '05', '06') THEN p.contribution_rate END) AS avg_contribution_rate_Q2,
+                    SUM(CASE WHEN SUBSTR(p.period_end, 6, 2) IN('07', '08', '09') THEN p.contribution_rate ELSE 0 END) /
+                    COUNT(CASE WHEN SUBSTR(p.period_end, 6, 2) IN('07', '08', '09') THEN p.contribution_rate END) AS avg_contribution_rate_Q3
+    FROM
+            periods AS p
+    JOIN
+            clients AS c ON p.client_period_id = c.id
+    WHERE
+    SUBSTR(p.period_end, 6, 2) IN('04', '05', '06', '07', '08', '09')
+        GROUP BY
+    c.client_id
+    )
+    SELECT
+    client_id,
+        avg_contribution_rate_09,
+        ((avg_contribution_rate_09 - avg_contribution_rate_08) / avg_contribution_rate_08) * 100 AS percentage_difference_09_vs_08,
+            ((avg_contribution_rate_Q3 - avg_contribution_rate_Q2) / avg_contribution_rate_Q2) * 100 AS percentage_difference_Q3_vs_Q2
+    FROM AverageContributions
+    ORDER BY client_id`;
+
+    db.all(query, (err, rows) => {
+        if (err) {
+            callback(err, null);
+            console.log(err);
+            return;
+        };
+        if (rows && rows.length > 0) {
+            callback(null, rows);
+        } else {
+            callback(null, []); // No data found for the client
+        }
+    });
+}
 
 function getAllClientIDs(callback) {
     const query = "SELECT DISTINCT client_id FROM clients_periods";
@@ -221,5 +264,6 @@ module.exports = {
     getAllClientIDs,
     getClientSources,
     getClientData,
-    getSourcePercentageByQuarter
+    getSourcePercentageByQuarter,
+    MainMenuData
 };
