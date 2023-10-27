@@ -51,7 +51,7 @@ export const getClientSources = async (clientID) => {
 export const getClientSourcesByQuarter = async (clientID, quarter) => {
   const response = await fetch(`${API_URL}/client-data/${clientID}/quarter/${quarter}/sources`);
   if (!response.ok) {
-    throw an Error('Error fetching client sources by quarter');
+    throw new Error('Error fetching client sources by quarter');
   }
   return response.json();
 };
@@ -63,3 +63,15 @@ export const getSourcePercentageByQuarter = async () => {
   }
   return response.json();
 };
+
+export const getClientDataForQuarter = async (clientID, quarter) => {
+  const weekStart = (quarter - 1) * 12 + 1; // Calculate the starting week for the quarter
+  const weekEnd = quarter * 12; // Calculate the ending week for the quarter
+  const response = await fetch(`${API_URL}/client-data/${clientID}/weeks/${weekStart}-${weekEnd}`);
+  if (!response.ok) {
+    throw new Error(`Error fetching client data for quarter ${quarter}`);
+  }
+  return response.json();
+};
+
+

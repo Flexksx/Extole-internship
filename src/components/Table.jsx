@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import {
   TableContainer,
   Table,
@@ -58,11 +58,8 @@ export function CustomTable() {
               <Tr key={index}>
                 <Td>
                   <Text textAlign="center">
-                    {index > 0 ? (
-                      <Link to={`/client/${row.client_id}`}>{row.client_id}</Link>
-                    ) : (
-                      <Link to={`/client/${row.client_id}`}>{row.client_id}</Link>
-                    )}
+                    {/* Use the Link component to navigate to individual Dashboards */}
+                    <Link to={`/dashboard/${row.client_id}`}>{row.client_id}</Link>
                   </Text>
                 </Td>
                 <Td>

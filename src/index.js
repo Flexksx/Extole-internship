@@ -14,6 +14,7 @@ root.render(
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/crpersource" element={<CRperSource />} />
           <Route path="/" element={<App />} /> {/* Route for the homepage */}
+          <Route path="/dashboard/:clientId" element={<Dashboard />} />
         </Routes>
       </Router>
     </ChakraProvider>
