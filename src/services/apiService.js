@@ -1,17 +1,65 @@
-// src/services/apiService.js
+const API_URL = 'http://localhost:2000'; // Replace with your API base URL
 
-const API_URL = 'localhost:2000/get-all-clients'; // Replace with your API URL
-
-export const fetchData = async () => {
-  try {
-    const response = await fetch(API_URL);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    throw error;
+export const getClientData = async (clientID) => {
+  const response = await fetch(`${API_URL}/client-data/${clientID}`);
+  if (!response.ok) {
+    throw new Error('Error fetching client data');
   }
+  return response.json();
+};
+
+export const getMainMenuData = async () => {
+  const response = await fetch(`${API_URL}/mainmenu`);
+  if (!response.ok) {
+    throw new Error('Error fetching main menu data');
+  }
+  return response.json();
+};
+
+export const getWeeklyData = async () => {
+  const response = await fetch(`${API_URL}/weekmenu`);
+  if (!response.ok) {
+    throw new Error('Error fetching weekly data');
+  }
+  return response.json();
+};
+
+export const getClientDataByQuarter = async (clientID, quarter) => {
+  const response = await fetch(`${API_URL}/client-data/${clientID}/quarter/${quarter}`);
+  if (!response.ok) {
+    throw new Error('Error fetching client data by quarter');
+  }
+  return response.json();
+};
+
+export const getAllClientIDs = async () => {
+  const response = await fetch(`${API_URL}/get-all-clients`);
+  if (!response.ok) {
+    throw new Error('Error fetching all client IDs');
+  }
+  return response.json();
+};
+
+export const getClientSources = async (clientID) => {
+  const response = await fetch(`${API_URL}/client-data/${clientID}/sources`);
+  if (!response.ok) {
+    throw new Error('Error fetching client sources');
+  }
+  return response.json();
+};
+
+export const getClientSourcesByQuarter = async (clientID, quarter) => {
+  const response = await fetch(`${API_URL}/client-data/${clientID}/quarter/${quarter}/sources`);
+  if (!response.ok) {
+    throw an Error('Error fetching client sources by quarter');
+  }
+  return response.json();
+};
+
+export const getSourcePercentageByQuarter = async () => {
+  const response = await fetch(`${API_URL}/sources/quarters`);
+  if (!response.ok) {
+    throw new Error('Error fetching source percentage data by quarter');
+  }
+  return response.json();
 };
