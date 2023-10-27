@@ -152,6 +152,7 @@ ORDER BY
         }
     });
 }
+
 function MainMenuData(callback) {
     const query = `WITH AverageContributions AS (
     SELECT
@@ -187,6 +188,49 @@ function MainMenuData(callback) {
             console.log(err);
             return;
         };
+        if (rows && rows.length > 0) {
+            callback(null, rows);
+        } else {
+            callback(null, []); // No data found for the client
+        }
+    });
+}
+
+function WeeklyData(callback) {
+    const query = `
+        WITH WeeklyData AS (
+            SELECT
+                c.client_id,
+                CAST(STRFTIME('%W', SUBSTR(p.period_end, 1, 10)) AS INTEGER) AS week,
+                SUM(p.contribution_rate) AS total_contributions,
+                COUNT(p.contribution_rate) AS contribution_count,
+                SUM(p.attribution) AS attributed,
+                SUM(p.total_customers) AS total_customers
+            FROM
+                periods AS p
+            JOIN
+                clients AS c ON p.client_period_id = c.id
+            WHERE
+                CAST(STRFTIME('%m', SUBSTR(p.period_end, 1, 10)) AS INTEGER) BETWEEN 1 AND 12
+            GROUP BY
+                c.client_id, week
+        )
+        SELECT
+            wd.client_id,
+            wd.week,
+            COALESCE(wd.total_contributions / wd.contribution_count, 0) AS contribution_rate,
+            COALESCE(wd.attributed, 0) AS attributed,
+            COALESCE(wd.total_customers - wd.attributed, 0) AS unattributed
+        FROM WeeklyData wd
+        ORDER BY
+            wd.week;`;
+
+    db.all(query, (err, rows) => {
+        if (err) {
+            console.error(err); // Log the error for debugging
+            callback(err, null);
+            return;
+        }
         if (rows && rows.length > 0) {
             callback(null, rows);
         } else {
@@ -264,5 +308,6 @@ module.exports = {
     getClientSources,
     getClientData,
     getSourcePercentageByQuarter,
-    MainMenuData
+    MainMenuData,
+    WeeklyData
 };
