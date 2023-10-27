@@ -57,14 +57,11 @@ WITH
 SELECT
     client_id,
     avg_contribution_rate_09,
-    --avg_contribution_rate_08,
     (
         (
             avg_contribution_rate_09 - avg_contribution_rate_08
         ) / avg_contribution_rate_08
     ) * 100 AS percentage_difference_09_vs_08,
-    --avg_contribution_rate_Q2,
-    --avg_contribution_rate_Q3,
     (
         (
             avg_contribution_rate_Q3 - avg_contribution_rate_Q2
