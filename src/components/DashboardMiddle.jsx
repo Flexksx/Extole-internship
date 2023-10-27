@@ -5,23 +5,6 @@ import HighchartsReact from 'highcharts-react-official';
 
 export function DashboardMiddle() {
 
-  const getChartDataForQuarter = async (quarter) => {
-    try {
-      const data = await getClientDataForQuarter(clientID, quarter);
-      const filteredData = data.filter((item) => {
-        // Filter the data for the selected quarter (e.g., quarter 1)
-        return item.week >= (quarter - 1) * 12 + 1 && item.week <= quarter * 12;
-      });
-      return filteredData.map((item) => {
-        // Convert the filtered data into the format needed for the chart
-        // ...
-      });
-    } catch (error) {
-      console.error(error);
-      return [];
-    }
-  };
-
   const weeks = Array.from({ length: 15 }, (_, index) => `Week ${index + 1}`);
   const options = {
     chart: {
