@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 // const IP_ADDRESS = '192.168.1.123'; // Replace with your local IP address
 const cors = require("cors"); // Import the cors package
-const { MainMenuData, getClientSourcesByQuarter, getClientDataByQuarter, getClientData, getAllClientIDs, getClientSources, getSourcePercentageByQuarter } = require("./database");
+const { WeeklyData, MainMenuData, getClientSourcesByQuarter, getClientDataByQuarter, getClientData, getAllClientIDs, getClientSources, getSourcePercentageByQuarter } = require("./database");
 const { log } = require("console");
 
 
@@ -26,6 +26,16 @@ app.get('/client-data/:clientID', (req, res) => {
 
 app.get('/mainmenu', (req, res) => {
     MainMenuData((err, data) => {
+        if (err) {
+            res.status(500).json({ error: 'An error occurred.' });
+        } else {
+            res.json(data);
+        }
+    });
+});
+
+app.get('/weekmenu', (req, res) => {
+    WeeklyData((err, data) => {
         if (err) {
             res.status(500).json({ error: 'An error occurred.' });
         } else {

@@ -7,7 +7,7 @@ conn = create_connection(
     "C:\\Users\\liviu\\Desktop\\extole\\practica\\database\\ClientDB\\Clients.db")
 
 
-drop_tables(conn)
+# drop_tables(conn)
 create_clients_table(conn)
 create_periods_table(conn)
 create_records_table(conn)
