@@ -43,13 +43,13 @@ export function CustomTable() {
                 <Text textAlign="center">Client ID</Text>
               </Th>
               <Th>
-                <Text textAlign="center">Average Contribution Rate</Text>
+                <Text textAlign="center">Contribution Rate(Last Month)</Text>
               </Th>
               <Th>
-                <Text textAlign="center">Percentage Difference 09 vs 08</Text>
+                <Text textAlign="center">Month vs Month</Text>
               </Th>
               <Th>
-                <Text textAlign="center">Percentage Difference Q3 vs Q2</Text>
+                <Text textAlign="center">Quarter vs Quarter</Text>
               </Th>
             </Tr>
           </Thead>

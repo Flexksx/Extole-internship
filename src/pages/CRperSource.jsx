@@ -42,12 +42,12 @@ const pieChartOptions = {
       data: [
         {
           name: 'Unattributed',
-          y: 10, // Add your data for Unattributed here
+          y: 105, // Add your data for Unattributed here
           color: "#e94f38",
         },
         {
           name: 'Attributed',
-          y: 20, // Add your data for Attributed here
+          y: 1080, // Add your data for Attributed here
           color: "#e01c4c",
         },
       ],
@@ -61,7 +61,7 @@ export function CRperSource() {
       w="100%"
       h="100vh"
       p={4}
-      bg="grey"
+      bg="#dbbaba"
       borderRadius="lg"
       justifyContent="space-between"
     >
@@ -69,7 +69,7 @@ export function CRperSource() {
         <Image src={logoUrl} alt="Company Logo" w="75%" mx="auto" mb={4} />
 
         <Box
-          bg="white"
+          bg="#e01c4c"
           borderRadius="md"
           p={2}
           textAlign="center"
@@ -110,7 +110,7 @@ export function CRperSource() {
 
       <Box w="65%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4}>
         <Text fontSize="3xl" fontWeight="bold" textAlign="center" mb={4}>
-          Dashboard Title
+          Dashboard: 1094173963
         </Text>
         <CRperSourceMiddle />
       </Box>

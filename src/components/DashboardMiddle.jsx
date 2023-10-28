@@ -1,18 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
 export function DashboardMiddle() {
+  const quarterData = {
+    "Q1": [73, 63, 60, 40, 49, 46, 38, 63, 53, 45, 49, 64],
+    "Q2": [45, 39, 30, 35, 48, 36, 48, 49, 47, 39, 41, 40],
+    "Q3": [6, 4, 39, 60, 46, 54, 56, 42, 52, 33, 37, 38],
+    "Q4": [29, 7, 23, 21],
+  };
 
-  const weeks = Array.from({ length: 15 }, (_, index) => `Week ${index + 1}`);
+  const [selectedQuarter, setSelectedQuarter] = useState('Q1');
+  const [chartData, setChartData] = useState(quarterData[selectedQuarter]);
+
+  const handleQuarterChange = (e) => {
+    const selectedQuarter = e.target.value;
+    setSelectedQuarter(selectedQuarter);
+  };
+
+  // Update the chartData when selectedQuarter changes
+  useEffect(() => {
+    setChartData(quarterData[selectedQuarter]);
+  }, [selectedQuarter]);
+
+  const weeks = Array.from({ length: 12 }, (_, index) => `Week ${index + 1}`);
   const options = {
     chart: {
       type: 'line',
-      height: '60%', // Adjust the height to make it larger
+      height: '60%',
     },
     title: {
-      text: 'Contribution Rate for ClientID:',
+      text: 'Contribution Rate for the client',
       align: 'left',
     },
     xAxis: {
@@ -26,17 +45,12 @@ export function DashboardMiddle() {
     series: [
       {
         name: 'CR, %',
-        data: [20, 30, 25, 40, 45, 50, 60, 70, 65, 55, 50, 45],
+        data: chartData,
         color: "#e01c4c",
       },
     ],
   };
 
-  const [selectedQuarter, setSelectedQuarter] = useState('Q1');
-
-  const handleQuarterChange = (e) => {
-    setSelectedQuarter(e.target.value);
-  };
 
   return (
     <div style={{ height: '100%', padding: '10px' }}>

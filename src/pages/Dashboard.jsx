@@ -47,7 +47,7 @@ const pieChartOptions = {
         },
         {
           name: 'Attributed',
-          y: 20, // Add your data for Attributed here
+          y: 241, // Add your data for Attributed here
           color: "#e01c4c",
         },
       ],
@@ -110,7 +110,7 @@ export function Dashboard() {
 
       <Box w="65%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4} h="96vh">
         <Text fontSize="3xl" fontWeight="bold" textAlign="center" mb={4}>
-          Dashboard Title
+          Dashboard: 1094173963
         </Text>
         <DashboardMiddle />
       </Box>
