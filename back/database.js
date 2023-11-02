@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 
-const db = new sqlite3.Database('/home/cristi/Documents/practica/database/ClientsDB/Clients.db', (err) => {
+const db = new sqlite3.Database('/users/vintuss/practica/database/ClientsDB/Clients.db', (err) => {
     if (err) {
         console.error('Error opening database:', err.message);
     } else {

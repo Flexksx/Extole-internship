@@ -2,54 +2,67 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import { getClientSourcesByQuarter } from '../services/apiService';
 
 export function CRperSourceMiddle() {
   const weeks = Array.from({ length: 15 }, (_, index) => `Source ${index + 1}`);
   const { clientId } = useParams();
-
-  const quarterData = {
-    "Quarter 1": [82, 61, 51, 36, 48, 35, 25, 38, 33, 27, 28, 39],
-    "Quarter 2": [26, 22, 26, 37, 27, 34, 28, 25, 19, 19, 18, 25],
-    "Quarter 3": [16, 17, 22, 20, 46, 54, 56, 42, 52, 33, 37, 38],
-    "Quarter 4": [48, 1, 61, 51, 36],
-  };
-
-  const [selectedQuarter, setSelectedQuarter] = useState('Quarter 1');
-  const [chartData, setChartData] = useState(quarterData[selectedQuarter]);
+  const [sourceNames, setSourceNames] = useState([]);
+  const [selectedQuarter, setSelectedQuarter] = useState('Q1');
+  const [chartData, setChartData] = useState([]);
 
   const handleQuarterChange = (e) => {
     setSelectedQuarter(e.target.value);
   };
 
   useEffect(() => {
-    setChartData(quarterData[selectedQuarter]);
-  }, [selectedQuarter]);
+    async function fetchData(quarter) {
+      try {
+        const sourcesData = await getClientSourcesByQuarter(clientId, quarter);
+        const customersBySource = sourcesData.reduce((acc, { source, customers }) => {
+          acc[source] = (acc[source] || 0) + customers;
+          return acc;
+        }, {});
+
+        const chartDataPrepared = Object.entries(customersBySource).map(([source, totalCustomers]) => ({
+          name: source,
+          y: totalCustomers
+        }));
+
+        setChartData(chartDataPrepared);
+        setSourceNames(chartDataPrepared.map(data => data.name));
+      } catch (error) {
+        console.error("Failed to fetch source data for client", error);
+      }
+    }
+
+    fetchData(selectedQuarter);
+  }, [clientId, selectedQuarter]);
 
   const options = {
     chart: {
-      type: 'bar',
-      height: '60%',
+      type: 'column',
     },
     title: {
-      text: 'Attributed per Source:',
-      align: 'left',
+      text: `Customer Count per Source for Client`,
     },
     xAxis: {
-      categories: weeks,
+      categories: sourceNames,
     },
     yAxis: {
+      min: 0,
       title: {
-        text: '',
+        text: 'Total Number of Customers',
       },
     },
-    series: [
-      {
-        name: 'Attributed',
-        data: chartData,
-        color: "#e01c4c",
-      },
-    ],
+    series: [{
+      name: 'Customers',
+      data: chartData,
+      color: "#e01c4c",
+    }],
   };
+
+  
 
   return (
     <div style={{ height: '100%', padding: '10px' }}>
@@ -82,12 +95,12 @@ export function CRperSourceMiddle() {
       <HighchartsReact highcharts={Highcharts} options={options} />
 
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
-        <select value={selectedQuarter} onChange={handleQuarterChange} style={{ width: '200px' }}>
-          <option value="Quarter 1">Quarter 1</option>
-          <option value="Quarter 2">Quarter 2</option>
-          <option value="Quarter 3">Quarter 3</option>
-          <option value="Quarter 4">Quarter 4</option>
-        </select>
+      <select value={selectedQuarter} onChange={handleQuarterChange}>
+        <option value="Q1">Quarter 1</option>
+        <option value="Q2">Quarter 2</option>
+        <option value="Q3">Quarter 3</option>
+        <option value="Q4">Quarter 4</option>
+      </select>
       </div>
     </div>
   );
