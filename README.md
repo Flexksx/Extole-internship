@@ -10,14 +10,18 @@ Some guy whose name I forgot sorry
 2. ```pip install pandas```\
 ```pip install jupyterlab```\
 ```pip install notebook```\
-``` sudo dnf install sqlite3```
-3. Check all the paths in the scripts and change them while running them. Sorry.
-4. Be sure that you have everything installed, because I might have forgotten something :)
-5. Create a ```ClientDB``` folder in the main directory and a ```Clients.db``` file inside it.
-6. Open ```database_scripts_py``` folder and run the ```dbpy.ipynb``` or the ```db_main.py``` script
-7. Check if the tables are created and the data is inserted.
-8. You can look in the ```back``` directory, where is the app.js file and you'll get how to work with the current state of the API
-9. Run the app.js and the React App in the ```src``` folder. 
+```sudo dnf install sqlite3```\
+Also you can install all necessary libraries for the JS app
+```npm -i sqlite3```
+```npm -i express```
+```npm -i react```
+4. Check all the paths in the scripts and change them while running them. Sorry.
+5. Be sure that you have everything installed, because I might have forgotten something :)
+6. Create a ```ClientDB``` folder in the main directory and a ```Clients.db``` file inside it.
+7. Open ```database_scripts_py``` folder and run the ```dbpy.ipynb``` or the ```db_main.py``` script
+8. Check if the tables are created and the data is inserted.
+9. You can look in the ```back``` directory, where is the app.js file and you'll get how to work with the current state of the API
+10. Run the app.js and the React App in the ```src``` folder. 
 ## Endpoints
 * localhost:PORT/get-all-clients - gives all client ids.
 * localhost:PORT/client-data/<client-id> - gives all-time info about a client.
