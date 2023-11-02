@@ -109,7 +109,8 @@ function getClientSourcesByQuarter(clientID, quarter, callback) {
     r.contribution_rate
 FROM
     records as r
-INNER JOIN clients_periods AS cp ON r.client_period_id = cp.id
+INNER JOIN periods AS p ON r.period_record_id = p.id
+INNER JOIN clients AS c ON p.client_period_id = c.id
 WHERE client_id = ? AND
     cp.period_end BETWEEN ? AND ?
 ORDER BY
