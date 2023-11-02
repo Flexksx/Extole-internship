@@ -18,7 +18,8 @@ def load_data_from_json(file_path):
             customers = client_json[client_id][period]["customers"]
             cr = client_json[client_id][period]["CR"]
             # Reorder the values
-            period_data.append((date, attribution, customers, cr, client_index))
+            period_data.append(
+                (date, attribution, customers, cr, client_index))
             period_index += 1
             for record_dict in client_json[client_id][period]["records"]:
                 source = record_dict["source"]

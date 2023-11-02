@@ -1,8 +1,9 @@
 metricscontribution_rate_initiative_cross_client_data_1613_for_students.csv
 clients/
 clients.json
-ClientDB/
+ClientDB/Cleints.db
 paths.py
 students_data.csv
 clients_per_day.json
 node_modules
+back/node_modules

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Box,
   Flex,
@@ -10,7 +11,7 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import { FaChartLine, FaHistory, FaBook, FaCog, FaBars, FaPhone, FaUser } from 'react-icons/fa';
-import { CRperSourceMiddle, DashboardMiddle } from '../components';
+import { CRperSourceMiddle, ClientPieChart } from '../components';
 import { Link as RouterLink } from 'react-router-dom';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
@@ -18,50 +19,14 @@ import HighchartsReact from 'highcharts-react-official';
 const logoUrl =
   'https://4a71b5761700fa86bf84.cdn6.editmysite.com/uploads/b/4a71b5761700fa86bf842ad62ae8665c4f535d423548ebe8cdacd81778f0713f/Extole-logo_large-copy_1656441979.png?width=800&optimize=medium';
 
-// Define the pie chart options
-const pieChartOptions = {
-  chart: {
-    type: 'pie',
-    backgroundColor: 'white',
-  },
-  title: {
-    text: 'Attribution Rate',
-  },
-  plotOptions: {
-    pie: {
-      dataLabels: {
-        enabled: false, // Disable data labels (category names)
-      },
-      showInLegend: true, // Show legend to indicate categories instead
-    },
-  },
-  series: [
-    {
-      name: 'Categories',
-      colorByPoint: true,
-      data: [
-        {
-          name: 'Unattributed',
-          y: 10, // Add your data for Unattributed here
-          color: "#e94f38",
-        },
-        {
-          name: 'Attributed',
-          y: 20, // Add your data for Attributed here
-          color: "#e01c4c",
-        },
-      ],
-    },
-  ],
-};
-
 export function CRperSource() {
+  const { clientId } = useParams();
   return (
     <Flex
       w="100%"
       h="100vh"
       p={4}
-      bg="grey"
+      bg="#dbbaba"
       borderRadius="lg"
       justifyContent="space-between"
     >
@@ -69,7 +34,7 @@ export function CRperSource() {
         <Image src={logoUrl} alt="Company Logo" w="75%" mx="auto" mb={4} />
 
         <Box
-          bg="white"
+          bg="#e01c4c"
           borderRadius="md"
           p={2}
           textAlign="center"
@@ -109,10 +74,10 @@ export function CRperSource() {
       </Box>
 
       <Box w="65%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4}>
-        <Text fontSize="3xl" fontWeight="bold" textAlign="center" mb={4}>
-          Dashboard Title
+      <Text fontSize="3xl" fontWeight="bold" textAlign="center" mb={4}>
+          Dashboard: {clientId} {/* Dynamic client ID */}
         </Text>
-        <CRperSourceMiddle />
+        <CRperSourceMiddle clientId={clientId} />
       </Box>
 
       <Box w="20%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
@@ -131,7 +96,7 @@ export function CRperSource() {
             </HStack>
           </Link>
           <Box w="100%" paddingBottom="100%" position="relative">
-            <HighchartsReact highcharts={Highcharts} options={pieChartOptions} containerProps={{ style: { position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 } }} />
+          <ClientPieChart clientId={clientId} />
           </Box>
         </VStack>
       </Box>

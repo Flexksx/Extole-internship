@@ -1,17 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import { getClientDataByQuarter } from '../services/apiService'; 
+import { getWeeklyData } from '../services/apiService';
+import { useParams } from 'react-router-dom';
 
 export function DashboardMiddle() {
-  const weeks = Array.from({ length: 15 }, (_, index) => `Week ${index + 1}`);
+  const { clientId } = useParams();
+  const [selectedQuarter, setSelectedQuarter] = useState('Q1');
+  const [chartData, setChartData] = useState([]);
+
+  const handleQuarterChange = (e) => {
+    setSelectedQuarter(e.target.value);
+  };
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // Fetch all weekly data
+        const allData = await getWeeklyData();
+        // Filter for the current client ID and selected quarter
+        const clientWeeklyData = allData.filter(data => data.client_id.toString() === clientId);
+        const startWeek = (parseInt(selectedQuarter[1]) - 1) * 13;
+        const endWeek = startWeek + 13;
+        const clientQuarterData = clientWeeklyData.filter(data => data.week >= startWeek && data.week < endWeek);
+        setChartData(clientQuarterData.map(item => item.contribution_rate));
+      } catch (error) {
+        console.error("Failed to fetch weekly data for client", error);
+      }
+    }
+
+    fetchData();
+  }, [clientId, selectedQuarter]);
+
+  const weeks = Array.from({ length: 38 }, (_, index) => `Week ${index + 1}`);
   const options = {
     chart: {
       type: 'line',
-      height: '60%', // Adjust the height to make it larger
+      height: '60%',
     },
     title: {
-      text: 'Contribution Rate for ClientID:',
+      text: 'Contribution Rate for the client',
       align: 'left',
     },
     xAxis: {
@@ -25,40 +55,35 @@ export function DashboardMiddle() {
     series: [
       {
         name: 'CR, %',
-        data: [20, 30, 25, 40, 45, 50, 60, 70, 65, 55, 50, 45],
+        data: chartData,
         color: "#e01c4c",
       },
     ],
   };
 
-  const [selectedQuarter, setSelectedQuarter] = useState('Q1');
-
-  const handleQuarterChange = (e) => {
-    setSelectedQuarter(e.target.value);
-  };
 
   return (
     <div style={{ height: '100%', padding: '10px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', paddingTop: '10px' }}>
-        <Link to="/dashboard">
+      <Link to={`/dashboard/${clientId}`}>
           <div style={{ backgroundColor: '#e01c4c', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
             <p>Contribution Rate, %</p>
           </div>
         </Link>
         <div style={{ width: '20px' }}></div>
-        <Link to="/crpersource">
+        <Link to={`/crpersource/${clientId}`}>
           <div style={{ backgroundColor: '#e01c4c', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
             <p>CR per Source</p>
           </div>
         </Link>
         <div style={{ width: '20px' }}></div>
-        <Link to="/monthovermonth">
+        <Link to={`/monthovermonth/${clientId}`}>
           <div style={{ backgroundColor: '#e01c4c', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
             <p>Month over Month</p>
           </div>
         </Link>
         <div style={{ width: '20px' }}></div>
-        <Link to="/quarteroverquarter">
+        <Link to={`/quarteroverquarter/${clientId}`}>
           <div style={{ backgroundColor: '#e01c4c', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
             <p>Quarter over Quarter</p>
           </div>
@@ -68,12 +93,12 @@ export function DashboardMiddle() {
       <HighchartsReact highcharts={Highcharts} options={options} />
 
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
-        <select value={selectedQuarter} onChange={handleQuarterChange} style={{ width: '200px' }}>
-          <option value="Q1">Quarter 1</option>
-          <option value="Q2">Quarter 2</option>
-          <option value="Q3">Quarter 3</option>
-          <option value="Q4">Quarter 4</option>
-        </select>
+      <select value={selectedQuarter} onChange={handleQuarterChange}>
+        <option value="Q1">Quarter 1</option>
+        <option value="Q2">Quarter 2</option>
+        <option value="Q3">Quarter 3</option>
+        <option value="Q4">Quarter 4</option>
+      </select>
       </div>
     </div>
   );
