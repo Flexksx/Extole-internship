@@ -17,11 +17,12 @@ Some guy whose name I forgot sorry
 6. Open database_scripts_py folder and run the dbpy.ipynb script
 7. Check if the tables are created and the data is inserted.
 8. You can look in the "back" directory, where is the app.js file and you'll get how to work with the current state of the API
-
+9. Run the app.js and the React App in the ```src``` folder. 
 ## Endpoints
 * localhost:PORT/get-all-clients - gives all client ids.
 * localhost:PORT/client-data/<client-id> - gives all-time info about a client.
 + /sources - gives all time info about a client's sources.
 + /quarter/<Q1,Q2,Q3,Q4> - gives info about a client by quarter.
 + + /sources - gives info about a client's sources by quarter.
+* localhost:PORT/mainmenu - gives the info for the main menu, client_id, cr, differences between CRs.
 
