@@ -35,7 +35,8 @@ function getClientDataByQuarter(clientID, quarter, callback) {
     const query = `SELECT
         period_end, contribution_rate
     FROM
-        clients_periods
+        clients AS c
+        INNER JOIN periods AS p ON c.id = p.client_period_id
     WHERE
         client_id = ? AND
         period_end BETWEEN ? AND ?`;
@@ -55,7 +56,7 @@ function getClientDataByQuarter(clientID, quarter, callback) {
 }
 
 function getClientData(clientID, callback) {
-    const query = "SELECT * FROM clients_periods WHERE client_id = ?";
+    const query = "SELECT * FROM clients WHERE client_id = ?";
 
     db.all(query, [clientID], (err, rows) => {
         if (err) {
@@ -79,8 +80,9 @@ function getClientSources(clientID, callback) {
     r.customers,
     r.contribution_rate
 FROM
-    records as r
-INNER JOIN clients_periods AS cp ON r.client_period_id = cp.id
+    records AS r
+    INNER JOIN periods AS p ON r.period_record_id = p.id
+    INNER JOIN clients AS c ON p.client_period_id = c.id
 WHERE client_id = ?
 ORDER BY
     cp.period_end ASC,
