@@ -16,7 +16,7 @@ Some guy whose name I forgot sorry
 5. Create a ClientDB folder in the main directory and a Clients.db file inside it.
 6. Open database_scripts_py folder and run the dbpy.ipynb script
 7. Check if the tables are created and the data is inserted.
-8. You can look in the "back" directory, where is the app.js file and you'll get how to work with the current state of the API
+8. You can look in the ```back``` directory, where is the app.js file and you'll get how to work with the current state of the API
 9. Run the app.js and the React App in the ```src``` folder. 
 ## Endpoints
 * localhost:PORT/get-all-clients - gives all client ids.
