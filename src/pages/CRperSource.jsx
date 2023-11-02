@@ -46,28 +46,28 @@ export function CRperSource() {
 
         <VStack spacing={4} align="center" flex="1" mb={4}>
           <Link display="flex" alignItems="center">
-            <Icon as={FaChartLine} />
-            <Text>Analytics</Text>
+            <Icon as={FaChartLine} color = "grey"/>
+            <Text color = "grey">Analytics</Text>
           </Link>
           <Link display="flex" alignItems="center">
-            <Icon as={FaHistory} />
-            <Text>History</Text>
+            <Icon as={FaHistory} color = "grey"/>
+            <Text color = "grey">History</Text>
           </Link>
           <Link display="flex" alignItems="center">
-            <Icon as={FaBook} />
-            <Text>Records</Text>
+            <Icon as={FaBook} color = "grey"/>
+            <Text color = "grey">Records</Text>
           </Link>
         </VStack>
 
         <VStack spacing={2} mb={4} mt="auto">
           <Link display="flex" alignItems="center">
-            <Icon as={FaCog} />
-            <Text>Settings</Text>
+            <Icon as={FaCog} color = "grey"/>
+            <Text color = "grey">Settings</Text>
           </Link>
           <Link display="flex" alignItems="center">
             <HStack>
-              <Icon as={FaPhone} />
-              <Text>Contact Us</Text>
+              <Icon as={FaPhone} color = "grey"/>
+              <Text color = "grey">Contact Us</Text>
             </HStack>
           </Link>
         </VStack>
@@ -85,8 +85,8 @@ export function CRperSource() {
         <VStack spacing={4} mt={4}>
           <Link as={RouterLink} to="/profile">
             <HStack>
-              <Icon as={FaUser} />
-              <Text>Profile</Text>
+              <Icon as={FaUser} color = "grey"/>
+              <Text color = "grey">Profile</Text>
             </HStack>
           </Link>
           <Link as={RouterLink} to="/">

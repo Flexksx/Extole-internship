@@ -80,13 +80,13 @@ export function CRperSourceMiddle() {
         </Link>
         <div style={{ width: '20px' }}></div>
         <Link to={`/monthovermonth/${clientId}`}>
-          <div style={{ backgroundColor: '#e01c4c', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
+          <div style={{ backgroundColor: 'grey', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
             <p>Month over Month</p>
           </div>
         </Link>
         <div style={{ width: '20px' }}></div>
         <Link to={`/quarteroverquarter/${clientId}`}>
-          <div style={{ backgroundColor: '#e01c4c', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
+          <div style={{ backgroundColor: 'grey', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
             <p>Quarter over Quarter</p>
           </div>
         </Link>
