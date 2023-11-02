@@ -25,9 +25,10 @@ export const getWeeklyData = async () => {
 };
 
 export const getClientDataByQuarter = async (clientID, quarter) => {
+  // Assuming your API expects quarter in the format 'Q1', 'Q2', etc.
   const response = await fetch(`${API_URL}/client-data/${clientID}/quarter/${quarter}`);
   if (!response.ok) {
-    throw new Error('Error fetching client data by quarter');
+    throw new Error(`Error fetching client data for client ${clientID} and quarter ${quarter}`);
   }
   return response.json();
 };
@@ -74,4 +75,11 @@ export const getClientDataForQuarter = async (clientID, quarter) => {
   return response.json();
 };
 
+export const getWeeklyDataForClient = async (clientID) => {
+  const response = await fetch(`${API_URL}/weekmenu/${clientID}`); // Make sure the backend supports this endpoint
+  if (!response.ok) {
+    throw new Error('Error fetching weekly data for client: ' + clientID);
+  }
+  return response.json();
+};
 

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
 export function CRperSourceMiddle() {
   const weeks = Array.from({ length: 15 }, (_, index) => `Source ${index + 1}`);
+  const { clientId } = useParams();
 
   const quarterData = {
     "Quarter 1": [82, 61, 51, 36, 48, 35, 25, 38, 33, 27, 28, 39],
@@ -53,25 +54,25 @@ export function CRperSourceMiddle() {
   return (
     <div style={{ height: '100%', padding: '10px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', paddingTop: '10px' }}>
-        <Link to="/dashboard">
+      <Link to={`/dashboard/${clientId}`}>
           <div style={{ backgroundColor: '#e01c4c', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
             <p>Contribution Rate, %</p>
           </div>
         </Link>
         <div style={{ width: '20px' }}></div>
-        <Link to="/crpersource">
+        <Link to={`/crpersource/${clientId}`}>
           <div style={{ backgroundColor: '#e01c4c', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
             <p>CR per Source</p>
           </div>
         </Link>
         <div style={{ width: '20px' }}></div>
-        <Link to="/monthovermonth">
+        <Link to={`/monthovermonth/${clientId}`}>
           <div style={{ backgroundColor: '#e01c4c', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
             <p>Month over Month</p>
           </div>
         </Link>
         <div style={{ width: '20px' }}></div>
-        <Link to="/quarteroverquarter">
+        <Link to={`/quarteroverquarter/${clientId}`}>
           <div style={{ backgroundColor: '#e01c4c', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>
             <p>Quarter over Quarter</p>
           </div>
