@@ -5,6 +5,7 @@ import HighchartsReact from 'highcharts-react-official';
 import { getClientDataByQuarter } from '../services/apiService'; 
 import { getWeeklyData } from '../services/apiService';
 import { useParams } from 'react-router-dom';
+import { Select, Flex } from '@chakra-ui/react';
 
 export function DashboardMiddle() {
   const { clientId } = useParams();
@@ -93,12 +94,21 @@ export function DashboardMiddle() {
       <HighchartsReact highcharts={Highcharts} options={options} />
 
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
-      <select value={selectedQuarter} onChange={handleQuarterChange}>
-        <option value="Q1">Quarter 1</option>
-        <option value="Q2">Quarter 2</option>
-        <option value="Q3">Quarter 3</option>
-        {/* <option value="Q4">Quarter 4</option> */}
-      </select>
+        <Flex width="200px">
+          <Select 
+            // placeholder="Select quarter"
+            value={selectedQuarter}
+            onChange={handleQuarterChange}
+            borderColor="gray.300"
+            _hover={{ borderColor: 'gray.400' }}
+            _focus={{ borderColor: 'e01c4c', boxShadow: `0 0 0 1px #e01c4c` }}
+          >
+            <option value="Q1">Quarter 1</option>
+            <option value="Q2">Quarter 2</option>
+            <option value="Q3">Quarter 3</option>
+            {/* <option value="Q4">Quarter 4</option> */}
+          </Select>
+        </Flex>
       </div>
     </div>
   );
