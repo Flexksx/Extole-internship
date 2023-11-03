@@ -9,6 +9,16 @@ import {
   Link,
   Icon,
   HStack,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button,
+  Center,
 } from '@chakra-ui/react';
 import { FaChartLine, FaHistory, FaBook, FaCog, FaBars, FaPhone, FaUser } from 'react-icons/fa';
 import { CRperSourceMiddle, ClientPieChart } from '../components';
@@ -21,6 +31,7 @@ const logoUrl =
 
 export function CRperSource() {
   const { clientId } = useParams();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Flex
       w="100%"
@@ -64,18 +75,40 @@ export function CRperSource() {
             <Icon as={FaCog} color = "grey"/>
             <Text color = "grey">Settings</Text>
           </Link>
-          <Link display="flex" alignItems="center">
-            <HStack>
-              <Icon as={FaPhone} color = "grey"/>
-              <Text color = "grey">Contact Us</Text>
-            </HStack>
-          </Link>
+          <Link display="flex" alignItems="center" onClick={onOpen}>
+        <HStack>
+          <Icon as={FaPhone} />
+          <Text>Contact Us</Text>
+        </HStack>
+      </Link>
+
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader textAlign="center">Contact Information</ModalHeader>
+          <ModalBody>
+            <Center>
+            <Text>
+              <div>Phone: 123-456-7890</div>
+              <div>Email: contact@example.com</div>
+            </Text>
+            </Center>
+          </ModalBody>
+          <ModalFooter>
+            <Center w="full">
+              <Button colorScheme="red" bg="#e01c4c" mr={3} onClick={onClose}>
+                Close
+              </Button>
+            </Center>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
         </VStack>
       </Box>
 
       <Box w="65%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4}>
       <Text fontSize="3xl" fontWeight="bold" textAlign="center" mb={4}>
-          Dashboard: {clientId} {/* Dynamic client ID */}
+          Dashboard: {clientId}
         </Text>
         <CRperSourceMiddle clientId={clientId} />
       </Box>
