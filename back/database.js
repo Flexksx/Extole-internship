@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 
-const db = new sqlite3.Database('/Users/vintuss/practica/database/ClientsDB/Clients.db', (err) => {
+const db = new sqlite3.Database('/users/vintuss/practica/database/ClientsDB/Clients.db', (err) => {
     if (err) {
         console.error('Error opening database:', err.message);
     } else {
@@ -74,7 +74,7 @@ function getClientData(clientID, callback) {
 
 function getClientSources(clientID, callback) {
     const query = `SELECT
-    cp.period_end,
+    p.period_endiod_end,
     r.source,
     r.source_type,
     r.customers,
@@ -85,7 +85,7 @@ FROM
     INNER JOIN clients AS c ON p.client_period_id = c.id
 WHERE client_id = ?
 ORDER BY
-    cp.period_end ASC,
+    p.period_end ASC,
     r.contribution_rate DESC;
 `;
     db.all(query, [clientID], (err, rows) => {
@@ -104,7 +104,7 @@ ORDER BY
 
 function getClientSourcesByQuarter(clientID, quarter, callback) {
     const query = `SELECT
-    cp.period_end,
+    p.period_end,
     r.source,
     r.source_type,
     r.customers,
@@ -114,9 +114,9 @@ FROM
 INNER JOIN periods AS p ON r.period_record_id = p.id
 INNER JOIN clients AS c ON p.client_period_id = c.id
 WHERE client_id = ? AND
-    cp.period_end BETWEEN ? AND ?
+    p.period_end BETWEEN ? AND ?
 ORDER BY
-    cp.period_end ASC,
+    p.period_end ASC,
     r.contribution_rate DESC;
 `;
     let startDate, endDate;

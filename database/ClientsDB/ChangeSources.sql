@@ -1,4 +1,4 @@
--- database: C:\Users\liviu\Desktop\extole\practica\database\ClientDB\Clients.db
+-- database: /home/cristi/Documents/practica/database/ClientsDB/Clients.db
 UPDATE records
 SET
     source = CASE

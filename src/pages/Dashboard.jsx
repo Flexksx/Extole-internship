@@ -9,6 +9,16 @@ import {
   Link,
   Icon,
   HStack,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button,
+  Center,
 } from '@chakra-ui/react';
 import { FaChartLine, FaHistory, FaBook, FaCog, FaBars, FaPhone, FaUser } from 'react-icons/fa';
 import { DashboardMiddle , ClientPieChart} from '../components';
@@ -20,6 +30,7 @@ const logoUrl =
   'https://4a71b5761700fa86bf84.cdn6.editmysite.com/uploads/b/4a71b5761700fa86bf842ad62ae8665c4f535d423548ebe8cdacd81778f0713f/Extole-logo_large-copy_1656441979.png?width=800&optimize=medium';
 
 export function Dashboard() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { clientId } = useParams();
   return (
     <Flex
@@ -46,36 +57,58 @@ export function Dashboard() {
 
         <VStack spacing={4} align="center" flex="1" mb={4}>
           <Link display="flex" alignItems="center">
-            <Icon as={FaChartLine} />
-            <Text>Analytics</Text>
+            <Icon as={FaChartLine} color = "grey"/>
+            <Text color = "grey">Analytics</Text>
           </Link>
           <Link display="flex" alignItems="center">
-            <Icon as={FaHistory} />
-            <Text>History</Text>
+            <Icon as={FaHistory} color = "grey"/>
+            <Text color = "grey">History</Text>
           </Link>
           <Link display="flex" alignItems="center">
-            <Icon as={FaBook} />
-            <Text>Records</Text>
+            <Icon as={FaBook} color = "grey"/>
+            <Text color = "grey">Records</Text>
           </Link>
         </VStack>
 
         <VStack spacing={2} mb={4} mt="auto">
           <Link display="flex" alignItems="center">
-            <Icon as={FaCog} />
-            <Text>Settings</Text>
+            <Icon as={FaCog} color = "grey"/>
+            <Text color = "grey">Settings</Text>
           </Link>
-          <Link display="flex" alignItems="center">
-            <HStack>
-              <Icon as={FaPhone} />
-              <Text>Contact Us</Text>
-            </HStack>
-          </Link>
+          <Link display="flex" alignItems="center" onClick={onOpen}>
+        <HStack>
+          <Icon as={FaPhone} />
+          <Text>Contact Us</Text>
+        </HStack>
+      </Link>
+
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader textAlign="center">Contact Information</ModalHeader>
+          <ModalBody>
+            <Center>
+            <Text>
+              <div>Phone: 123-456-7890</div>
+              <div>Email: contact@example.com</div>
+            </Text>
+            </Center>
+          </ModalBody>
+          <ModalFooter>
+            <Center w="full">
+              <Button colorScheme="red" bg="#e01c4c" mr={3} onClick={onClose}>
+                Close
+              </Button>
+            </Center>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
         </VStack>
       </Box>
 
       <Box w="65%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4}>
         <Text fontSize="3xl" fontWeight="bold" textAlign="center" mb={4}>
-          Dashboard: {clientId} {/* Dynamic client ID */}
+          Dashboard: {clientId} 
         </Text>
         <DashboardMiddle clientId={clientId} />
       </Box>
@@ -85,8 +118,8 @@ export function Dashboard() {
         <VStack spacing={4} mt={4}>
           <Link as={RouterLink} to="/profile">
             <HStack>
-              <Icon as={FaUser} />
-              <Text>Profile</Text>
+              <Icon as={FaUser} color = "grey"/>
+              <Text color = "grey">Profile</Text>
             </HStack>
           </Link>
           <Link as={RouterLink} to="/">
