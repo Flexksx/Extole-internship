@@ -89,8 +89,8 @@ export function Dashboard() {
           <ModalBody>
             <Center>
             <Text>
-              <div>Phone: 123-456-7890</div>
-              <div>Email: contact@example.com</div>
+              <div>Phone: 022-xxx-xxx</div>
+              <div>Email: hello@extole.com</div>
             </Text>
             </Center>
           </ModalBody>
