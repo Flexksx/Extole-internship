@@ -19,6 +19,7 @@ import {
   useDisclosure,
   Button,
   Center,
+  Switch
 } from '@chakra-ui/react';
 import { FaChartLine, FaHistory, FaBook, FaCog, FaBars, FaPhone, FaUser } from 'react-icons/fa';
 import { CRperSourceMiddle, ClientPieChart } from '../components';
@@ -31,7 +32,10 @@ const logoUrl =
 
 export function CRperSource() {
   const { clientId } = useParams();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { isOpen: isSettingsOpen, onOpen: onSettingsOpen, onClose: onSettingsClose } = useDisclosure();
+  const { isOpen: isContactOpen, onOpen: onContactOpen, onClose: onContactClose } = useDisclosure();
+
   return (
     <Flex
       w="100%"
@@ -70,39 +74,81 @@ export function CRperSource() {
         </VStack>
 
         <VStack spacing={2} mb={4} mt="auto">
-          <Link display="flex" alignItems="center">
-            <Icon as={FaCog} color = "grey"/>
-            <Text color = "grey">Settings</Text>
+        <Link display="flex" alignItems="center" onClick={onSettingsOpen}>
+            <HStack>
+              <Icon as={FaCog} />
+              <Text>Settings</Text>
+            </HStack>
           </Link>
-          <Link display="flex" alignItems="center" onClick={onOpen}>
-        <HStack>
-          <Icon as={FaPhone} />
-          <Text>Contact Us</Text>
-        </HStack>
-      </Link>
 
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader textAlign="center">Contact Information</ModalHeader>
-          <ModalBody>
-            <Center>
-            <Text>
-              <div>Phone: 022-xxx-xxx</div>
-              <div>Email: hello@extole.com</div>
-            </Text>
-            </Center>
-          </ModalBody>
-          <ModalFooter>
-            <Center w="full">
-              <Button colorScheme="red" bg="#e01c4c" mr={3} onClick={onClose}>
+          <Link display="flex" alignItems="center" onClick={onContactOpen}>
+            <HStack>
+              <Icon as={FaPhone} />
+              <Text>Contact Us</Text>
+            </HStack>
+          </Link>
+        </VStack>
+
+        <Modal isOpen={isSettingsOpen} onClose={onSettingsClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Settings</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+            <VStack spacing={4} alignItems="flex-start">
+              <Switch id="email-notifications"  size="lg" colorScheme="red"
+              sx={{'.chakra-switch__track': { _checked: { bg: "#e01c4c !important",},},
+              '.chakra-switch__thumb': {_checked: {  bg: "white" }, }}} >
+                Email Notifications
+              </Switch>
+
+              <Switch id="email-notifications"  size="lg" colorScheme="red"
+              sx={{'.chakra-switch__track': { _checked: { bg: "#e01c4c !important",},},
+              '.chakra-switch__thumb': {_checked: {  bg: "white" }, }}} >
+                Dashboard Updates
+              </Switch>
+
+              <Switch id="email-notifications"  size="lg" colorScheme="red"
+              sx={{'.chakra-switch__track': { _checked: { bg: "#e01c4c !important",},},
+              '.chakra-switch__thumb': {_checked: {  bg: "white" }, }}} >
+                Some Future Features
+              </Switch>
+
+              <Switch id="email-notifications"  size="lg" colorScheme="red"
+              sx={{'.chakra-switch__track': { _checked: { bg: "#e01c4c !important",},},
+              '.chakra-switch__thumb': {_checked: {  bg: "white" }, }}} >
+                Another Future Features
+              </Switch>
+              </VStack>
+
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="red" bg="#e01c4c" mr={3} onClick={onSettingsClose}>
                 Close
               </Button>
-            </Center>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-        </VStack>
+              <Button variant="ghost">Save Changes</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+
+        <Modal isOpen={isContactOpen} onClose={onContactClose} isCentered>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader textAlign="center">Contact Information</ModalHeader>
+            <ModalBody>
+              <Text textAlign="center">
+                Phone: 022-xxx-xxx
+                <br />
+                Email: hello@extole.com
+              </Text>
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="red" bg="#e01c4c" onClick={onContactClose}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </Box>
 
       <Box w="65%" h="100%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4}>
