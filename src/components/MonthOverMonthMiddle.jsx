@@ -9,44 +9,68 @@ import { Select, Flex, Text } from '@chakra-ui/react';
 
 export function MonthOverMonthMiddle() {
   const { clientId } = useParams();
-  const [selectedQuarter, setSelectedQuarter] = useState('Q1');
-  const [chartData, setChartData] = useState([]);
+  const [selectedMonth1, setSelectedMonth1] = useState('January');
+  const [selectedMonth2, setSelectedMonth2] = useState('February');
+  const [chartData1, setChartData1] = useState([]);
+  const [chartData2, setChartData2] = useState([]);
 
-  const handleQuarterChange = (e) => {
-    setSelectedQuarter(e.target.value);
+  const handleMonthChange1 = (e) => {
+    setSelectedMonth1(e.target.value);
+  };
+
+  const handleMonthChange2 = (e) => {
+    setSelectedMonth2(e.target.value);
   };
 
   useEffect(() => {
     async function fetchData() {
       try {
-        // Fetch all weekly data
         const allData = await getWeeklyData();
-        // Filter for the current client ID and selected quarter
-        const clientWeeklyData = allData.filter(data => data.client_id.toString() === clientId);
-        const startWeek = (parseInt(selectedQuarter[1]) - 1) * 13;
-        const endWeek = startWeek + 13;
-        const clientQuarterData = clientWeeklyData.filter(data => data.week >= startWeek && data.week < endWeek);
-        setChartData(clientQuarterData.map(item => item.contribution_rate));
+        const clientData = allData.filter(data => data.client_id.toString() === clientId);
+
+        const mapMonthToWeeks = (month) => {
+          const monthMapping = {
+            January: [1, 2, 3, 4],
+            February: [5, 6, 7, 8],
+            March: [9, 10, 11, 12],
+            April: [13, 14, 15, 16],
+            May: [17, 18, 19, 20],
+            June: [21, 22, 23, 24, 25],
+            July: [26, 27, 28, 29],
+            August: [30, 31, 32, 33, 34],
+            September: [35, 36, 37, 38]
+          };
+          return monthMapping[month];
+        };
+
+        const getDataForMonth = (month) => {
+          const weeks = mapMonthToWeeks(month);
+          return clientData
+            .filter(weekData => weeks.includes(weekData.week))
+            .map(weekData => weekData.contribution_rate);
+        };
+
+        setChartData1(getDataForMonth(selectedMonth1));
+        setChartData2(getDataForMonth(selectedMonth2));
       } catch (error) {
         console.error("Failed to fetch weekly data for client", error);
       }
     }
 
     fetchData();
-  }, [clientId, selectedQuarter]);
+  }, [clientId, selectedMonth1, selectedMonth2]);
 
-  const weeks = Array.from({ length: 38 }, (_, index) => `Week ${index + 1}`);
   const options = {
     chart: {
       type: 'line',
       height: '60%',
     },
     title: {
-      text: 'Contribution Rate for the client',
+      text: 'Contribution Rate Month over Month',
       align: 'left',
     },
     xAxis: {
-      categories: weeks,
+      categories: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
     },
     yAxis: {
       title: {
@@ -55,9 +79,14 @@ export function MonthOverMonthMiddle() {
     },
     series: [
       {
-        name: 'CR, %',
-        data: chartData,
+        name: `CR, % (${selectedMonth1})`,
+        data: chartData1,
         color: "#e01c4c",
+      },
+      {
+        name: `CR, % (${selectedMonth2})`,
+        data: chartData2,
+        color: "black",
       },
     ],
   };
@@ -95,25 +124,32 @@ export function MonthOverMonthMiddle() {
       </div>
 
       <HighchartsReact highcharts={Highcharts} options={options} />
+      <Flex justifyContent="center" marginTop="10px">
+  <Select value={selectedMonth1} onChange={handleMonthChange1} width="200px">
+    <option value="January">January</option>
+    <option value="February">February</option>
+    <option value="March">March</option>
+    <option value="April">April</option>
+    <option value="May">May</option>
+    <option value="June">June</option>
+    <option value="July">July</option>
+    <option value="August">August</option>
+    <option value="September">September</option>
+  </Select>
+  <Select value={selectedMonth2} onChange={handleMonthChange2} width="200px" marginLeft="20px">
+    <option value="January">January</option>
+    <option value="February">February</option>
+    <option value="March">March</option>
+    <option value="April">April</option>
+    <option value="May">May</option>
+    <option value="June">June</option>
+    <option value="July">July</option>
+    <option value="August">August</option>
+    <option value="September">September</option>
+  </Select>
+</Flex>
 
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
-        <Flex width="200px">
-          <Select 
-            // placeholder="Select quarter"
-            value={selectedQuarter}
-            onChange={handleQuarterChange}
-            borderColor="gray.300"
-            _hover={{ borderColor: 'gray.400' }}
-            _focus={{ borderColor: 'e01c4c', boxShadow: `0 0 0 1px #e01c4c` }}
-          >
-            <option value="Q1">Quarter 1</option>
-            <option value="Q2">Quarter 2</option>
-            <option value="Q3">Quarter 3</option>
-            {/* <option value="Q4">Quarter 4</option> */}
-          </Select>
-        </Flex>
       </div>
-    </div>
   );
 }
 
