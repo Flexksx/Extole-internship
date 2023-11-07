@@ -19,9 +19,7 @@ export function DashboardMiddle() {
   useEffect(() => {
     async function fetchData() {
       try {
-        // Fetch all weekly data
         const allData = await getWeeklyData();
-        // Filter for the current client ID and selected quarter
         const clientWeeklyData = allData.filter(data => data.client_id.toString() === clientId);
         const startWeek = (parseInt(selectedQuarter[1]) - 1) * 13;
         const endWeek = startWeek + 13;
@@ -99,7 +97,6 @@ export function DashboardMiddle() {
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
         <Flex width="200px">
           <Select 
-            // placeholder="Select quarter"
             value={selectedQuarter}
             onChange={handleQuarterChange}
             borderColor="gray.300"

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom';
 import {
   TableContainer,
   Table,
@@ -17,7 +17,6 @@ export function CustomTable() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    // Fetch data from your API endpoint
     axios.get('http://localhost:2000/mainmenu')
       .then((response) => {
         setData(response.data);

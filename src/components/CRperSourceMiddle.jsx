@@ -101,7 +101,6 @@ export function CRperSourceMiddle() {
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
         <Flex width="200px">
           <Select 
-            // placeholder="Select quarter"
             value={selectedQuarter}
             onChange={handleQuarterChange}
             borderColor="gray.300"
