@@ -9,7 +9,7 @@ export function ClientPieChart({ clientId }) {
     useEffect(() => {
         async function fetchData() {
           try {
-            const allData = await getWeeklyData(); // Fetch all weekly data
+            const allData = await getWeeklyData();
             const clientData = allData.filter(item => item.client_id.toString() === clientId);
     
             const attributedTotal = clientData.reduce((sum, record) => sum + record.attributed, 0);
@@ -27,7 +27,6 @@ export function ClientPieChart({ clientId }) {
         fetchData();
       }, [clientId]);
 
-  // Pie chart options
   const pieChartOptions = {
     chart: {
       type: 'pie',

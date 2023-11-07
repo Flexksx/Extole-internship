@@ -22,10 +22,10 @@ import {
   Switch,
   FormControl,
   FormLabel, 
-  Input, 
+  Input
 } from '@chakra-ui/react';
 import { FaChartLine, FaHistory, FaBook, FaCog, FaBars, FaPhone, FaUser } from 'react-icons/fa';
-import { CRperSourceMiddle, ClientPieChart } from '../components';
+import { QuarterOverQuarterMiddle , ClientPieChart} from '../components';
 import { Link as RouterLink } from 'react-router-dom';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
@@ -33,14 +33,12 @@ import HighchartsReact from 'highcharts-react-official';
 const logoUrl =
   'https://4a71b5761700fa86bf84.cdn6.editmysite.com/uploads/b/4a71b5761700fa86bf842ad62ae8665c4f535d423548ebe8cdacd81778f0713f/Extole-logo_large-copy_1656441979.png?width=800&optimize=medium';
 
-export function CRperSource() {
-  const { clientId } = useParams();
-
+export function QuarterOverQuarter() {
   const { isOpen: isSettingsOpen, onOpen: onSettingsOpen, onClose: onSettingsClose } = useDisclosure();
   const { isOpen: isContactOpen, onOpen: onContactOpen, onClose: onContactClose } = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-
+  const { clientId } = useParams();
   return (
     <Flex
       w="100%"
@@ -50,7 +48,7 @@ export function CRperSource() {
       borderRadius="lg"
       justifyContent="space-between"
     >
-      <Box w="15%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
+      <Box w="15%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column" h="96vh">
         <Image src={logoUrl} alt="Company Logo" w="75%" mx="auto" mb={4} />
 
         <Box
@@ -151,12 +149,11 @@ export function CRperSource() {
           </ModalContent>
         </Modal>
       </Box>
-
       <Box w="65%" h="100%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4}>
-        <CRperSourceMiddle clientId={clientId} />
+        <QuarterOverQuarterMiddle clientId={clientId} />
       </Box>
 
-      <Box w="20%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
+      <Box w="20%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column" h="96vh">
         <Text fontSize="3xl" textAlign="center" fontWeight="bold">More</Text>
         <VStack spacing={4} mt={4}>
         <Link onClick={onOpen}>
@@ -203,4 +200,4 @@ export function CRperSource() {
   );
 }
 
-export default CRperSource;
+export default QuarterOverQuarter;

@@ -25,7 +25,7 @@ import {
   Input, 
 } from '@chakra-ui/react';
 import { FaChartLine, FaHistory, FaBook, FaCog, FaBars, FaPhone, FaUser } from 'react-icons/fa';
-import { CRperSourceMiddle, ClientPieChart } from '../components';
+import { RecordsMiddle , ClientPieChart} from '../components';
 import { Link as RouterLink } from 'react-router-dom';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
@@ -33,14 +33,12 @@ import HighchartsReact from 'highcharts-react-official';
 const logoUrl =
   'https://4a71b5761700fa86bf84.cdn6.editmysite.com/uploads/b/4a71b5761700fa86bf842ad62ae8665c4f535d423548ebe8cdacd81778f0713f/Extole-logo_large-copy_1656441979.png?width=800&optimize=medium';
 
-export function CRperSource() {
-  const { clientId } = useParams();
-
+export function Records() {
   const { isOpen: isSettingsOpen, onOpen: onSettingsOpen, onClose: onSettingsClose } = useDisclosure();
   const { isOpen: isContactOpen, onOpen: onContactOpen, onClose: onContactClose } = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-
+  const { clientId } = useParams();
   return (
     <Flex
       w="100%"
@@ -50,28 +48,33 @@ export function CRperSource() {
       borderRadius="lg"
       justifyContent="space-between"
     >
-      <Box w="15%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
+      <Box w="15%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column" h="96vh">
         <Image src={logoUrl} alt="Company Logo" w="75%" mx="auto" mb={4} />
 
-        <Box
+
+        <VStack spacing={4} align="center" flex="1" mb={4}>
+        <RouterLink
+            to={`/dashboard/${clientId}`}
+            style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}
+            >
+            <FaChartLine style={{ marginRight: '8px' }} />
+            <Text>Dashboard</Text>
+        </RouterLink>
+
+          
+          
+          <Box
           bg="#e01c4c"
           borderRadius="md"
           p={2}
           textAlign="center"
           color="white"
           mb={4}
+          width="175px"
         >
-          <Text fontSize="xl">Dashboard</Text>
+          <Text fontSize="xl">Top Contribution</Text>
         </Box>
 
-        <VStack spacing={4} align="center" flex="1" mb={4}>
-          <RouterLink
-              to={`/records/${clientId}`}
-              style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}
-            >
-              <FaBook style={{ marginRight: '8px' }} />
-              <Text>Top Contribution</Text>
-            </RouterLink>
         </VStack>
 
         <VStack spacing={2} mb={4} mt="auto">
@@ -151,12 +154,11 @@ export function CRperSource() {
           </ModalContent>
         </Modal>
       </Box>
-
       <Box w="65%" h="100%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4}>
-        <CRperSourceMiddle clientId={clientId} />
+        <RecordsMiddle clientId={clientId} />
       </Box>
 
-      <Box w="20%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column">
+      <Box w="20%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column" h="96vh">
         <Text fontSize="3xl" textAlign="center" fontWeight="bold">More</Text>
         <VStack spacing={4} mt={4}>
         <Link onClick={onOpen}>
@@ -175,6 +177,7 @@ export function CRperSource() {
           <ClientPieChart clientId={clientId} />
           </Box>
         </VStack>
+
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
           <ModalOverlay />
           <ModalContent>
@@ -203,4 +206,4 @@ export function CRperSource() {
   );
 }
 
-export default CRperSource;
+export default Records;
