@@ -63,10 +63,6 @@ export function MonthOverMonth() {
         </Box>
 
         <VStack spacing={4} align="center" flex="1" mb={4}>
-          <Link display="flex" alignItems="center">
-            <Icon as={FaHistory} color = "grey"/>
-            <Text color = "grey">History</Text>
-          </Link>
           <RouterLink
               to={`/records/${clientId}`}
               style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}

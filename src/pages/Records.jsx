@@ -62,10 +62,6 @@ export function Records() {
         </RouterLink>
 
           
-          <Link display="flex" alignItems="center">
-            <Icon as={FaHistory} color = "grey"/>
-            <Text color = "grey">History</Text>
-          </Link>
           
           <Box
           bg="#e01c4c"
