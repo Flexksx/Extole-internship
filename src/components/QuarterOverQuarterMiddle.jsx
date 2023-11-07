@@ -1,48 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { getClientDataByQuarter } from '../services/apiService'; 
 import { getWeeklyData } from '../services/apiService';
-import { useParams } from 'react-router-dom';
-import { Select, Flex, Text } from '@chakra-ui/react';
+import { Flex, Select, Text } from '@chakra-ui/react';
 
-export function DashboardMiddle() {
+export function QuarterOverQuarterMiddle() {
   const { clientId } = useParams();
-  const [selectedQuarter, setSelectedQuarter] = useState('Q1');
-  const [chartData, setChartData] = useState([]);
+  const [selectedQuarter1, setSelectedQuarter1] = useState('Q1');
+  const [selectedQuarter2, setSelectedQuarter2] = useState('Q2');
+  const [chartData1, setChartData1] = useState([]);
+  const [chartData2, setChartData2] = useState([]);
 
-  const handleQuarterChange = (e) => {
-    setSelectedQuarter(e.target.value);
+  const handleQuarterChange1 = (e) => {
+    setSelectedQuarter1(e.target.value);
+  };
+
+  const handleQuarterChange2 = (e) => {
+    setSelectedQuarter2(e.target.value);
   };
 
   useEffect(() => {
     async function fetchData() {
       try {
-        // Fetch all weekly data
         const allData = await getWeeklyData();
-        // Filter for the current client ID and selected quarter
+
+        const filterDataForQuarter = (data, quarter) => {
+          const startWeek = quarter === 'Q1' ? 1 : quarter === 'Q2' ? 13 : 26;
+          const endWeek = startWeek + 12;
+          return data
+            .filter(week => week.week >= startWeek && week.week < endWeek)
+            .map(item => item.contribution_rate);
+        };
+
         const clientWeeklyData = allData.filter(data => data.client_id.toString() === clientId);
-        const startWeek = (parseInt(selectedQuarter[1]) - 1) * 13;
-        const endWeek = startWeek + 13;
-        const clientQuarterData = clientWeeklyData.filter(data => data.week >= startWeek && data.week < endWeek);
-        setChartData(clientQuarterData.map(item => item.contribution_rate));
+        
+        setChartData1(filterDataForQuarter(clientWeeklyData, selectedQuarter1));
+        setChartData2(filterDataForQuarter(clientWeeklyData, selectedQuarter2));
       } catch (error) {
         console.error("Failed to fetch weekly data for client", error);
       }
     }
 
     fetchData();
-  }, [clientId, selectedQuarter]);
+  }, [clientId, selectedQuarter1, selectedQuarter2]);
 
-  const weeks = Array.from({ length: 38 }, (_, index) => `Week ${index + 1}`);
+  const weeks = Array.from({ length: 12 }, (_, index) => `Week ${index + 1}`);
   const options = {
     chart: {
       type: 'line',
       height: '60%',
     },
     title: {
-      text: 'Contribution Rate for the client',
+      text: 'Contribution Rate per Quarter',
       align: 'left',
     },
     xAxis: {
@@ -55,16 +65,20 @@ export function DashboardMiddle() {
     },
     series: [
       {
-        name: 'CR, %',
-        data: chartData,
+        name: `${selectedQuarter1} CR, %`,
+        data: chartData1,
         color: "#e01c4c",
+      },
+      {
+        name: `${selectedQuarter2} CR, %`,
+        data: chartData2,
+        color: "black",
       },
     ],
   };
 
-
   return (
-    <div style={{ height: '100%', padding: '10px' }}>
+<div style={{ height: '100%', padding: '10px' }}>
       <Text fontSize="3xl" fontWeight="bold" textAlign="center" mb={4}>
           Dashboard: {clientId} 
         </Text>
@@ -93,28 +107,21 @@ export function DashboardMiddle() {
           </div>
         </Link>
       </div>
-
       <HighchartsReact highcharts={Highcharts} options={options} />
-
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
-        <Flex width="200px">
-          <Select 
-            // placeholder="Select quarter"
-            value={selectedQuarter}
-            onChange={handleQuarterChange}
-            borderColor="gray.300"
-            _hover={{ borderColor: 'gray.400' }}
-            _focus={{ borderColor: 'e01c4c', boxShadow: `0 0 0 1px #e01c4c` }}
-          >
-            <option value="Q1">Quarter 1</option>
-            <option value="Q2">Quarter 2</option>
-            <option value="Q3">Quarter 3</option>
-            {/* <option value="Q4">Quarter 4</option> */}
-          </Select>
-        </Flex>
-      </div>
+      <Flex justifyContent="center" marginTop="10px">
+        <Select value={selectedQuarter1} onChange={handleQuarterChange1} width="200px">
+          <option value="Q1">Quarter 1</option>
+          <option value="Q2">Quarter 2</option>
+          <option value="Q3">Quarter 3</option>
+        </Select>
+        <Select value={selectedQuarter2} onChange={handleQuarterChange2} width="200px" marginLeft="20px">
+          <option value="Q1">Quarter 1</option>
+          <option value="Q2">Quarter 2</option>
+          <option value="Q3">Quarter 3</option>
+        </Select>
+      </Flex>
     </div>
   );
 }
 
-export default DashboardMiddle;
+export default QuarterOverQuarterMiddle;

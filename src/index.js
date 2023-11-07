@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { Dashboard, App, CRperSource, Records } from "./pages";
+import { Dashboard, App, CRperSource, Records, QuarterOverQuarter } from "./pages";
 import { ChakraProvider } from '@chakra-ui/react'
 import { BrowserRouter as Router, Route, Routes, Link, Outlet } from 'react-router-dom'; // Import Link and Outlet
 
@@ -15,6 +15,7 @@ root.render(
           <Route path="/crpersource/:clientId" element={<CRperSource />} />
           <Route path="/records/:clientId" element={<Records />} />
           <Route path="/dashboard/:clientId" element={<Dashboard />} />
+          <Route path="/quarteroverquarter/:clientId" element={<QuarterOverQuarter />} />
           <Route path="/" element={<App />} />
         </Routes>
       </Router>
