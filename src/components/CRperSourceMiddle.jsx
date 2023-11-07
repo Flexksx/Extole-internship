@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Select, Flex } from '@chakra-ui/react';
+import { Select, Flex, Text } from '@chakra-ui/react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { getClientSourcesByQuarter } from '../services/apiService';
@@ -67,6 +67,9 @@ export function CRperSourceMiddle() {
 
   return (
     <div style={{ height: '100%', padding: '10px' }}>
+      <Text fontSize="3xl" fontWeight="bold" textAlign="center" mb={4}>
+          Dashboard: {clientId} 
+        </Text>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', paddingTop: '10px' }}>
       <Link to={`/dashboard/${clientId}`}>
           <div style={{ backgroundColor: '#e01c4c', flex: '1', height: '50px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', padding: '10px' }}>

@@ -65,7 +65,7 @@ export function Dashboard() {
               style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}
             >
               <FaBook style={{ marginRight: '8px' }} />
-              <Text>Records</Text>
+              <Text>Top Contribution</Text>
             </RouterLink>
         </VStack>
 
@@ -105,10 +105,7 @@ export function Dashboard() {
         </VStack>
       </Box>
 
-      <Box w="65%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4}>
-        <Text fontSize="3xl" fontWeight="bold" textAlign="center" mb={4}>
-          Dashboard: {clientId} 
-        </Text>
+      <Box w="65%" h="100%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4}>
         <DashboardMiddle clientId={clientId} />
       </Box>
 

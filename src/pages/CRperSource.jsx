@@ -57,17 +57,16 @@ export function CRperSource() {
 
         <VStack spacing={4} align="center" flex="1" mb={4}>
           <Link display="flex" alignItems="center">
-            <Icon as={FaChartLine} color = "grey"/>
-            <Text color = "grey">Analytics</Text>
-          </Link>
-          <Link display="flex" alignItems="center">
             <Icon as={FaHistory} color = "grey"/>
             <Text color = "grey">History</Text>
           </Link>
-          <Link display="flex" alignItems="center">
-            <Icon as={FaBook} color = "grey"/>
-            <Text color = "grey">Records</Text>
-          </Link>
+          <RouterLink
+              to={`/records/${clientId}`}
+              style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}
+            >
+              <FaBook style={{ marginRight: '8px' }} />
+              <Text>Top Contribution</Text>
+            </RouterLink>
         </VStack>
 
         <VStack spacing={2} mb={4} mt="auto">
@@ -106,10 +105,7 @@ export function CRperSource() {
         </VStack>
       </Box>
 
-      <Box w="65%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4}>
-      <Text fontSize="3xl" fontWeight="bold" textAlign="center" mb={4}>
-          Dashboard: {clientId}
-        </Text>
+      <Box w="65%" h="100%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4}>
         <CRperSourceMiddle clientId={clientId} />
       </Box>
 

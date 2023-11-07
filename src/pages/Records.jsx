@@ -67,9 +67,9 @@ export function Records() {
           textAlign="center"
           color="white"
           mb={4}
-          width="150px"
+          width="175px"
         >
-          <Text fontSize="xl">Records</Text>
+          <Text fontSize="xl">Top Contribution</Text>
         </Box>
 
         </VStack>
@@ -110,10 +110,7 @@ export function Records() {
         </VStack>
       </Box>
 
-      <Box w="65%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4}>
-        <Text fontSize="3xl" fontWeight="bold" textAlign="center" mb={4}>
-          Dashboard: {clientId} 
-        </Text>
+      <Box w="65%" h="100%" bg="white" borderRadius="md" p={4} boxShadow="md" mb={4}>
         <RecordsMiddle clientId={clientId} />
       </Box>
 
