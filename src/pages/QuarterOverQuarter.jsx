@@ -19,7 +19,10 @@ import {
   useDisclosure,
   Button,
   Center,
-  Switch
+  Switch,
+  FormControl,
+  FormLabel, 
+  Input
 } from '@chakra-ui/react';
 import { FaChartLine, FaHistory, FaBook, FaCog, FaBars, FaPhone, FaUser } from 'react-icons/fa';
 import { QuarterOverQuarterMiddle , ClientPieChart} from '../components';
@@ -33,6 +36,7 @@ const logoUrl =
 export function QuarterOverQuarter() {
   const { isOpen: isSettingsOpen, onOpen: onSettingsOpen, onClose: onSettingsClose } = useDisclosure();
   const { isOpen: isContactOpen, onOpen: onContactOpen, onClose: onContactClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { clientId } = useParams();
   return (
@@ -156,10 +160,10 @@ export function QuarterOverQuarter() {
       <Box w="20%" bg="white" borderRadius="md" p={4} boxShadow="md" display="flex" flexDirection="column" h="96vh">
         <Text fontSize="3xl" textAlign="center" fontWeight="bold">More</Text>
         <VStack spacing={4} mt={4}>
-          <Link as={RouterLink} to="/profile">
+        <Link onClick={onOpen}>
             <HStack>
-              <Icon as={FaUser} color = "grey"/>
-              <Text color = "grey">Profile</Text>
+              <Icon as={FaUser} />
+              <Text>Profile</Text>
             </HStack>
           </Link>
           <Link as={RouterLink} to="/">
@@ -172,6 +176,29 @@ export function QuarterOverQuarter() {
           <ClientPieChart clientId={clientId} />
           </Box>
         </VStack>
+        <Modal isOpen={isOpen} onClose={onClose} isCentered>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Profile Details</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <FormControl id="email" isRequired>
+                <FormLabel>Email</FormLabel>
+                <Input placeholder="email@extole.com" />
+              </FormControl>
+              <FormControl id="username" isRequired mt={4}>
+                <FormLabel>Username</FormLabel>
+                <Input placeholder="VintusS" />
+              </FormControl>
+            </ModalBody>
+            <ModalFooter>
+            <Button colorScheme="red" bg="#e01c4c" onClick={onClose}>
+                Close
+              </Button>
+              <Button variant="ghost">Save Changes</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </Box>
     </Flex>
   );
