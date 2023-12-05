@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { Dashboard, App, CRperSource, Records, QuarterOverQuarter, MonthOverMonth } from "./pages";
+import { Dashboard, App, CRperSource, Records, QuarterOverQuarter, MonthOverMonth, MainTable, Login } from "./pages";
 import { ChakraProvider } from '@chakra-ui/react'
 import { BrowserRouter as Router, Route, Routes, Link, Outlet } from 'react-router-dom'; // Import Link and Outlet
 
@@ -17,7 +17,8 @@ root.render(
           <Route path="/dashboard/:clientId" element={<Dashboard />} />
           <Route path="/quarteroverquarter/:clientId" element={<QuarterOverQuarter />} />
           <Route path="/monthovermonth/:clientId" element={<MonthOverMonth />} />
-          <Route path="/" element={<App />} />
+          <Route path="/tableview" element={<MainTable />} />
+          <Route path="/login" element={<App />} />
         </Routes>
       </Router>
     </ChakraProvider>
