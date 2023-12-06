@@ -18,7 +18,7 @@ root.render(
           <Route path="/quarteroverquarter/:clientId" element={<QuarterOverQuarter />} />
           <Route path="/monthovermonth/:clientId" element={<MonthOverMonth />} />
           <Route path="/tableview" element={<MainTable />} />
-          <Route path="/login" element={<App />} />
+          <Route path="/" element={<App />} />
         </Routes>
       </Router>
     </ChakraProvider>

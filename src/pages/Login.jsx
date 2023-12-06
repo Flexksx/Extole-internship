@@ -5,11 +5,17 @@ import {
 } from '@chakra-ui/react';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [clientIds, setClientIds] = useState([]);
   const navigate = useNavigate();
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleLogin();
+    }
+  };
 
   useEffect(() => {
     const fetchClientIds = async () => {
@@ -28,7 +34,7 @@ const Login = () => {
   }, []);
 
   const handleLogin = () => {
-    if (email === 'dragomir.mindrescu@isa.utm.md') {
+    if (username.trim() && password) {
       if (password === 'admin') {
         navigate('/tableview');
       } else if (clientIds.includes(password)) {
@@ -37,13 +43,20 @@ const Login = () => {
         setError('Invalid password');
       }
     } else {
-      setError('Invalid email');
+      setError('Invalid username');
     }
   };
 
   return (
-    <Center h="100vh">
-      <Box w="400px" p={4} boxShadow="md" borderRadius="md">
+    <Center
+      h="100vh"
+      w="100vw"
+      backgroundImage="url('https://removal.ai/wp-content/uploads/2021/05/image12-2.png')" // Replace with your image URL or path
+      backgroundSize="cover" // Cover the entire page
+      backgroundRepeat="no-repeat" // Prevent repeating the image
+      backgroundPosition="center center" // Center the image
+    >
+      <Box w="400px" p={4} boxShadow="md" borderRadius="md" bg="white" opacity={0.9}>
         <Center>
         <img
         src="https://4a71b5761700fa86bf84.cdn6.editmysite.com/uploads/b/4a71b5761700fa86bf842ad62ae8665c4f535d423548ebe8cdacd81778f0713f/Extole-logo_large-copy_1656441979.png?width=800&optimize=medium"
@@ -59,13 +72,14 @@ const Login = () => {
           </Alert>
         )}
 
-        <FormControl id="email" isRequired>
-          <FormLabel>Email</FormLabel>
+        <FormControl id="username" isRequired>
+          <FormLabel>Username</FormLabel>
           <Input 
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="email@example.com" 
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            onKeyPress={handleKeyPress}
+            placeholder="Your Username" 
           />
         </FormControl>
 
@@ -75,6 +89,7 @@ const Login = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onKeyPress={handleKeyPress}
             placeholder="Password" 
           />
         </FormControl>
