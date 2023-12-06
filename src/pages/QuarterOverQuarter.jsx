@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import {
   Box,
@@ -22,7 +23,9 @@ import {
   Switch,
   FormControl,
   FormLabel, 
-  Input
+  Input,
+  Alert,
+  AlertIcon,
 } from '@chakra-ui/react';
 import { FaChartLine, FaHistory, FaBook, FaCog, FaBars, FaPhone, FaUser } from 'react-icons/fa';
 import { QuarterOverQuarterMiddle , ClientPieChart} from '../components';
@@ -37,6 +40,48 @@ export function QuarterOverQuarter() {
   const { isOpen: isSettingsOpen, onOpen: onSettingsOpen, onClose: onSettingsClose } = useDisclosure();
   const { isOpen: isContactOpen, onOpen: onContactOpen, onClose: onContactClose } = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [clientIds, setClientIds] = useState([]);
+  const navigate = useNavigate();
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleLogin();
+    }
+  };
+
+  useEffect(() => {
+    const fetchClientIds = async () => {
+      try {
+        const response = await fetch('http://localhost:2000/mainmenu');
+        const data = await response.json();
+        const ids = data.map(item => item.client_id);
+        setClientIds(ids);
+      } catch (err) {
+        console.error('Failed to fetch client IDs:', err);
+        setError('Failed to load client data');
+      }
+    };
+
+    fetchClientIds();
+  }, []);
+
+  const handleLogin = () => {
+    if (username.trim() && password) {
+      if (password === 'admin') {
+        navigate('/tableview');
+      } else if (clientIds.includes(password)) {
+        navigate(`/dashboard/${password}`);
+      } else {
+        setError('Invalid password');
+      }
+    } else {
+      setError('Invalid username');
+    }
+  };
 
   const { clientId } = useParams();
   return (
@@ -159,7 +204,7 @@ export function QuarterOverQuarter() {
         <Link onClick={onOpen}>
             <HStack>
               <Icon as={FaUser} />
-              <Text>Profile</Text>
+              <Text>Authentification</Text>
             </HStack>
           </Link>
           <Link as={RouterLink} to="/">
@@ -173,28 +218,55 @@ export function QuarterOverQuarter() {
           </Box>
         </VStack>
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Profile Details</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <FormControl id="email" isRequired>
-                <FormLabel>Email</FormLabel>
-                <Input placeholder="email@extole.com" />
-              </FormControl>
-              <FormControl id="username" isRequired mt={4}>
-                <FormLabel>Username</FormLabel>
-                <Input placeholder="VintusS" />
-              </FormControl>
-            </ModalBody>
-            <ModalFooter>
-            <Button colorScheme="red" bg="#e01c4c" onClick={onClose}>
-                Close
-              </Button>
-              <Button variant="ghost">Save Changes</Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Authentication Details</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <FormControl id="username" isRequired>
+              <FormLabel>Username</FormLabel>
+              <Input 
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Your Username" 
+              />
+            </FormControl>
+
+            <FormControl id="password" mt={4} isRequired>
+              <FormLabel>Password</FormLabel>
+              <Input 
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Password" 
+              />
+            </FormControl>
+
+          {error && (
+          <Alert status="error" mt={5} mb = {-5}>
+            <AlertIcon />
+            {error}
+          </Alert>
+        )}
+          </ModalBody>
+          <ModalFooter justifyContent="center" mt={4}>
+          <Flex>
+          <Button
+            bg="#e01c4c"
+            color="white"
+            _hover={{ bg: "#c71a3b" }}
+            _active={{ bg: "#af1729" }}
+            onClick={handleLogin}
+          >
+            Login
+          </Button>
+        </Flex>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       </Box>
     </Flex>
   );

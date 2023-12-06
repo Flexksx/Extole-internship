@@ -4,7 +4,7 @@ import {
   Box, Center, Flex, Button, FormControl, FormLabel, Input, Alert, AlertIcon, Image
 } from '@chakra-ui/react';
 
-const Login = () => {
+export function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
