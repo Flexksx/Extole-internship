@@ -20,11 +20,11 @@ import {
   useDisclosure,
   Button,
   Center,
-  Switch, 
+  Switch,
   FormControl,
-  FormLabel, 
-  Input, 
-  Alert, 
+  FormLabel,
+  Input,
+  Alert,
   AlertIcon,
 } from '@chakra-ui/react';
 import { FaChartLine, FaHistory, FaBook, FaCog, FaBars, FaPhone, FaUser } from 'react-icons/fa';
@@ -56,7 +56,7 @@ export function Dashboard() {
   useEffect(() => {
     const fetchClientIds = async () => {
       try {
-        const response = await fetch('http://localhost:2000/mainmenu');
+        const response = await fetch('https://sleepy-pond-18261.pktriot.net/api/mainmenu');
         const data = await response.json();
         const ids = data.map(item => item.client_id);
         setClientIds(ids);
@@ -226,23 +226,23 @@ export function Dashboard() {
           <ModalBody>
             <FormControl id="username" isRequired>
               <FormLabel>Username</FormLabel>
-              <Input 
+              <Input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Your Username" 
+                placeholder="Your Username"
               />
             </FormControl>
 
             <FormControl id="password" mt={4} isRequired>
               <FormLabel>Password</FormLabel>
-              <Input 
+              <Input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Password" 
+                placeholder="Password"
               />
             </FormControl>
 

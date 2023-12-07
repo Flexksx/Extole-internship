@@ -18,7 +18,7 @@ export function CustomTable() {
   const [sortDirection, setSortDirection] = useState({ col2: 'none', col3: 'none', col4: 'none' });
 
   useEffect(() => {
-    axios.get('http://localhost:2000/mainmenu')
+    axios.get('https://sleepy-pond-18261.pktriot.net/api/mainmenu')
       .then((response) => {
         setData(response.data);
       })
@@ -26,7 +26,7 @@ export function CustomTable() {
         console.error('Error fetching data:', error);
       });
   }, []);
-  
+
 
   const sortData = (column) => {
     const direction = sortDirection[column] === 'asc' ? 'desc' : 'asc';

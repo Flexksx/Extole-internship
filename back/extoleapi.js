@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-// const IP_ADDRESS = '192.168.1.123'; // Replace with your local IP address
+const IP_ADDRESS = '127.0.0.1'; // Replace with your local IP address
 const cors = require("cors"); // Import the cors package
 const { WeeklyData, MainMenuData, getClientSourcesByQuarter, getClientDataByQuarter, getClientData, getAllClientIDs, getClientSources, getSourcePercentageByQuarter } = require("./database");
 const { log } = require("console");
@@ -10,7 +10,7 @@ const { log } = require("console");
 
 app.use(cors());
 
-app.get('/client-data/:clientID', (req, res) => {
+app.get('/api/client-data/:clientID', (req, res) => {
     const clientID = req.params.clientID;
 
     getClientData(clientID, (err, clientData) => {
@@ -24,7 +24,7 @@ app.get('/client-data/:clientID', (req, res) => {
     });
 });
 
-app.get('/mainmenu', (req, res) => {
+app.get('/api/mainmenu', (req, res) => {
     MainMenuData((err, data) => {
         if (err) {
             res.status(500).json({ error: 'An error occurred.' });
@@ -34,7 +34,7 @@ app.get('/mainmenu', (req, res) => {
     });
 });
 
-app.get('/weekmenu', (req, res) => {
+app.get('/api/weekmenu', (req, res) => {
     WeeklyData((err, data) => {
         if (err) {
             res.status(500).json({ error: 'An error occurred.' });
@@ -44,7 +44,7 @@ app.get('/weekmenu', (req, res) => {
     });
 });
 
-app.get('/client-data/:clientID/quarter/:quarter', (req, res) => {
+app.get('/api/client-data/:clientID/quarter/:quarter', (req, res) => {
     const clientID = req.params.clientID;
     const quarter = req.params.quarter;
     let quarterNum;
@@ -76,7 +76,7 @@ app.get('/client-data/:clientID/quarter/:quarter', (req, res) => {
     });
 });
 
-app.get('/get-all-clients', (req, res) => {
+app.get('/api/get-all-clients', (req, res) => {
     let clientIDs;
     getAllClientIDs((err, clientIDs) => {
         if (err) {
@@ -89,7 +89,7 @@ app.get('/get-all-clients', (req, res) => {
     });
 });
 
-app.get('/client-data/:clientID/sources', (req, res) => {
+app.get('/api/client-data/:clientID/sources', (req, res) => {
     const clientID = req.params.clientID;
     getClientSources(clientID, (err, clientSources) => {
         if (err) {
@@ -103,7 +103,7 @@ app.get('/client-data/:clientID/sources', (req, res) => {
 });
 
 
-app.get('/client-data/:clientID/quarter/:quarter/sources', (req, res) => {
+app.get('/api/client-data/:clientID/quarter/:quarter/sources', (req, res) => {
     const clientID = req.params.clientID;
     const quarter = req.params.quarter;
     let quarterNum;
@@ -134,7 +134,7 @@ app.get('/client-data/:clientID/quarter/:quarter/sources', (req, res) => {
         }
     });
 });
-app.get('/sources/quarters/', (req, res) => {
+app.get('/api/sources/quarters/', (req, res) => {
     getSourcePercentageByQuarter((err, clientData) => {
         if (err) {
             res.status(500).json({ error: 'Internal Server Error' });
@@ -149,6 +149,6 @@ app.get('/sources/quarters/', (req, res) => {
 const PORT = 2000; // Choose a port number of your choice
 
 
-app.listen(PORT, () => {
-    console.log(`Server is running on localhost: ${PORT}`);
+app.listen(PORT,IP_ADDRESS, () => {
+    console.log(`Server is running on ${IP_ADDRESS}:${PORT}`);
 });

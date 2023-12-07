@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:2000'; // Replace with your API base URL
+const API_URL = 'https://sleepy-pond-18261.pktriot.net/api'; // Replace with your API base URL
 
 export const getClientData = async (clientID) => {
   const response = await fetch(`${API_URL}/client-data/${clientID}`);
