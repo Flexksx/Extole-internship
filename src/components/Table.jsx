@@ -15,6 +15,7 @@ import axios from 'axios';
 
 export function CustomTable() {
   const [data, setData] = useState([]);
+  const [sortDirection, setSortDirection] = useState({ col2: 'none', col3: 'none', col4: 'none' });
 
   useEffect(() => {
     axios.get('http://localhost:2000/mainmenu')
@@ -25,6 +26,18 @@ export function CustomTable() {
         console.error('Error fetching data:', error);
       });
   }, []);
+  
+
+  const sortData = (column) => {
+    const direction = sortDirection[column] === 'asc' ? 'desc' : 'asc';
+    const sortedData = [...data].sort((a, b) => {
+      if (a[column] < b[column]) return direction === 'asc' ? -1 : 1;
+      if (a[column] > b[column]) return direction === 'asc' ? 1 : -1;
+      return 0;
+    });
+    setData(sortedData);
+    setSortDirection({ ...sortDirection, [column]: direction });
+  };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -41,14 +54,14 @@ export function CustomTable() {
               <Th>
                 <Text textAlign="center">Client ID</Text>
               </Th>
-              <Th>
-                <Text textAlign="center">Contribution Rate(Last Month)</Text>
+              <Th onClick={() => sortData('avg_contribution_rate_09')}>
+                <Text textAlign="center" style={{ cursor: 'pointer' }}>Contribution Rate (Last Month)</Text>
               </Th>
-              <Th>
-                <Text textAlign="center">Month vs Month</Text>
+              <Th onClick={() => sortData('percentage_difference_09_vs_08')}>
+                <Text textAlign="center" style={{ cursor: 'pointer' }}>Month vs Month</Text>
               </Th>
-              <Th>
-                <Text textAlign="center">Quarter vs Quarter</Text>
+              <Th onClick={() => sortData('percentage_difference_Q3_vs_Q2')}>
+                <Text textAlign="center" style={{ cursor: 'pointer' }}>Quarter vs Quarter</Text>
               </Th>
             </Tr>
           </Thead>
