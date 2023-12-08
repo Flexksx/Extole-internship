@@ -5,6 +5,10 @@ Ana-Maria\
 Alex\
 Igor\
 Ivan
+## Description
+This project involves the development of a comprehensive dashboard system designed for referral marketing analysis. The core feature is a secure login page, leading to a data-rich table view that presents key metrics for each client. Clients are companies seeking to expand their referral networks, and the dashboard is tailored to assist in this endeavor. Key metrics include the 'Contribution Rate', which measures the ratio of users invited by the company to the total user base. The system facilitates the process of inviting users through referral marketing strategies.
+## Demo
+https://youtu.be/LmotuJ33Nm4
 ## Setup
 1. Clone the repo, open the data_analysis folder and put students_data.csv in this folder.
 2. ```pip install pandas```\
