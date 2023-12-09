@@ -5,6 +5,7 @@ Ana-Maria\
 Alex\
 Igor\
 Ivan
+## [a href](sleepy-pond-18261.pktriot.net)
 ## Description
 This project involves the development of a comprehensive dashboard system designed for referral marketing analysis. The core feature is a secure login page, leading to a data-rich table view that presents key metrics for each client. Clients are companies seeking to expand their referral networks, and the dashboard is tailored to assist in this endeavor. Key metrics include the 'Contribution Rate', which measures the ratio of users invited by the company to the total user base. The system facilitates the process of inviting users through referral marketing strategies.
 ## Demo
@@ -25,7 +26,7 @@ Also you can install all necessary libraries for the JS app
 7. Open ```database_scripts_py``` folder and run the ```dbpy.ipynb``` or the ```db_main.py``` script
 8. Check if the tables are created and the data is inserted.
 9. You can look in the ```back``` directory, where is the app.js file and you'll get how to work with the current state of the API
-10. Run the app.js and the React App in the ```src``` folder. 
+10. Run the app.js and the React App in the ```src``` folder.
 ## Endpoints
 * localhost:PORT/get-all-clients - gives all client ids.
 * localhost:PORT/client-data/<client-id> - gives all-time info about a client.
